@@ -1,6 +1,5 @@
 import { Listener } from 'necord';
-import { LavalinkManagerEvents } from 'lavalink-client/dist/types/structures/Types/Manager';
-import { NodeManagerEvents } from 'lavalink-client';
+import { NecordLavalinkEvents } from '../listener.interface';
 
 /**
  * Decorator that marks a method as a listener for Lavalink client.
@@ -8,6 +7,5 @@ import { NodeManagerEvents } from 'lavalink-client';
  * @returns The decorated method.
  * @url https://necord.org/recipes/lavalink/listeners
  */
-export const OnceLavalink = <K extends keyof E, E = LavalinkManagerEvents | NodeManagerEvents>(
-	event: K
-) => Listener({ type: 'once', event });
+export const OnceLavalink = <K extends keyof E, E = NecordLavalinkEvents>(event: K) =>
+	Listener({ type: 'once', event });
