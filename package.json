@@ -1,6 +1,6 @@
 {
-	"name": "nestjs-open-source-template",
-	"description": "\uD83D\uDCDC My template for creating NestJS Open Source projects",
+	"name": "@necord/lavalink",
+	"description": "🎵 A implementation of lavalink-client for Necord",
 	"version": "1.0.0",
 	"scripts": {
 		"build": "rimraf dist && tsc -p tsconfig.build.json",
@@ -25,10 +25,10 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/SocketSomeone/nestjs-open-source-template"
+		"url": "https://github.com/necordjs/lavalink"
 	},
 	"bugs": {
-		"url": "https://github.com/SocketSomeone/nestjs-open-source-template"
+		"url": "https://github.com/necordjs/lavalink"
 	},
 	"author": "Alexey Filippov <socket.someone@gmail.com>",
 	"contributors": [
@@ -46,12 +46,15 @@
 		"@types/node": "22.5.4",
 		"@typescript-eslint/eslint-plugin": "5.62.0",
 		"@typescript-eslint/parser": "5.62.0",
+		"discord.js": "^14.16.2",
 		"eslint": "8.57.0",
 		"eslint-config-prettier": "9.1.0",
 		"eslint-plugin-prettier": "5.2.1",
 		"husky": "9.1.5",
 		"jest": "29.7.0",
+		"lavalink-client": "^2.3.3",
 		"lint-staged": "15.2.10",
+		"necord": "^6.8.6",
 		"prettier": "3.3.3",
 		"reflect-metadata": "0.2.2",
 		"release-it": "17.6.0",
@@ -64,6 +67,9 @@
 	"peerDependencies": {
 		"@nestjs/common": "^8.0.0 || ^9.0.0 || ^10.0.0",
 		"@nestjs/core": "^8.0.0 || ^9.0.0 || ^10.0.0",
+		"discord.js": "^14.16.2",
+		"lavalink-client": "^2.3.3",
+		"necord": "^6.8.5",
 		"reflect-metadata": "^0.2.1",
 		"rxjs": "^7.2.0"
 	}
