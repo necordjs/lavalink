@@ -1,4 +1,4 @@
-import { Listener } from 'necord';
+import { Listener } from './listener.decorator';
 import { NecordLavalinkEvents } from '../listener.interface';
 
 /**
@@ -7,5 +7,5 @@ import { NecordLavalinkEvents } from '../listener.interface';
  * @returns The decorated method.
  * @url https://necord.org/recipes/lavalink/listeners
  */
-export const OnLavalink = <K extends keyof E, E = NecordLavalinkEvents>(event: K) =>
+export const OnLavalink = <K extends keyof NecordLavalinkEvents>(event: K) =>
 	Listener({ type: 'on', event });
