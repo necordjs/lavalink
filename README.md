@@ -48,23 +48,15 @@ import { AppUpdate } from './app.update';
 
 @Module({
     imports: [
-        NecordLavalinkModule.forRootAsync({
-            useFactory: (client: Client) => ({
-                nodes: [
-                    {
-                        authorization: 'youshallnotpass',
-                        host: 'localhost',
-                        port: 2333,
-                        id: 'main_node'
-                    }
-                ],
-                sendToShard: (guildId, payload) => client.guilds.cache.get(guildId)?.shard?.send(payload),
-                client: {
-                    id: client.user.id,
-                    username: client.user.username,
+        NecordLavalinkModule.forRoot({
+            nodes: [
+                {
+                    authorization: 'youshallnotpass',
+                    host: 'localhost',
+                    port: 2333,
+                    id: 'main_node'
                 }
-            }),
-            inject: [Client]
+            ]
         })
     ],
     providers: [AppUpdate]
