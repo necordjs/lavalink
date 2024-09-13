@@ -3,7 +3,7 @@ import { NecordLavalinkEvents } from './listener.interface';
 
 export interface ListenerMeta {
 	type: 'once' | 'on';
-	event: NecordLavalinkEvents;
+	event: keyof NecordLavalinkEvents;
 }
 
 /**
