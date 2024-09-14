@@ -1,2 +1,2 @@
-export * from './LavalinkManager';
-export * from './NodeManager';
+export * from './lavalink-manager.provider';
+export * from './node-manager.provider';

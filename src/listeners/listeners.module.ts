@@ -1,33 +1,69 @@
-import { LavalinkManagerEvents } from 'lavalink-client/dist/types/structures/Types/Manager';
 import { Module, OnModuleInit } from '@nestjs/common';
-import { LavalinkManager, NodeManagerEvents } from 'lavalink-client';
-import { ExplorerService, Listener } from 'necord';
-import { ListenerDiscovery } from './listener.discovery';
+import { LavalinkManager, NodeManager } from 'lavalink-client';
+import { DiscoveryService, MetadataScanner, Reflector } from '@nestjs/core';
+import { LavalinkListener } from './decorators';
+import { LavalinkListenerMeta } from './interfaces';
+
+interface ExecutableListener extends LavalinkListenerMeta {
+	run: (...args: any[]) => void;
+}
 
 @Module({})
 export class LavalinkListenersModule implements OnModuleInit {
 	public constructor(
+		private readonly discoveryService: DiscoveryService,
+		private readonly metadataScanner: MetadataScanner,
+		private readonly reflector: Reflector,
 		private readonly lavalinkManager: LavalinkManager,
-		private readonly explorerService: ExplorerService<ListenerDiscovery>
+		private readonly nodeManager: NodeManager
 	) {}
 
 	public onModuleInit(): void {
-		return this.explorerService.explore(Listener.KEY).forEach(listener => {
-			const event = listener.getEvent();
+		const wrappers = this.discoveryService.getProviders();
+		const groupedListeners = new Map<string, ExecutableListener[]>();
 
-			if (event in this.lavalinkManager) {
-				this.lavalinkManager[listener.getType()](
-					event as keyof LavalinkManagerEvents,
-					(...args) => listener.execute(args)
-				);
-			}
+		for (const wrapper of wrappers) {
+			const instance = wrapper.instance;
+			const prototype = Object.getPrototypeOf(instance);
 
-			if (event in this.lavalinkManager.nodeManager) {
-				this.lavalinkManager.nodeManager[listener.getType()](
-					event as keyof NodeManagerEvents,
-					(...args) => listener.execute(args)
+			const methods = this.metadataScanner.getAllMethodNames(prototype);
+
+			for (const method of methods) {
+				const meta = this.reflector.get<LavalinkListenerMeta>(
+					LavalinkListener,
+					instance[method]
 				);
+
+				if (!meta) continue;
+
+				const event = meta.event;
+				const host = meta.host;
+				const run = instance[method].bind(instance);
+
+				const key = `${event}:${host}`;
+
+				const listeners = groupedListeners.get(key) ?? [];
+				listeners.push({ ...meta, run });
+				groupedListeners.set(key, listeners);
 			}
-		});
+		}
+
+		for (const [key, listeners] of groupedListeners) {
+			const [event, host] = key.split(':');
+
+			if (host === 'LavalinkManager') {
+				this.lavalinkManager.on(event as any, (...args: any[]) => {
+					for (const listener of listeners) {
+						listener.run(...args);
+					}
+				});
+			} else if (host === 'NodeManager') {
+				this.nodeManager.on(event as any, (...args: any[]) => {
+					for (const listener of listeners) {
+						listener.run(...args);
+					}
+				});
+			}
+		}
 	}
 }
