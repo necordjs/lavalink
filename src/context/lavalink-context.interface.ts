@@ -1,3 +1,4 @@
-import { NecordLavalinkEvents } from '../listeners/listener.interface';
+import { NecordLavalinkManagerEvents, NecordNodeManagerEvents } from '../listeners';
 
-export type LavalinkContextOf<K extends keyof E, E = NecordLavalinkEvents> = E[K];
+export type LavalinkManagerContextOf<K extends keyof E, E = NecordLavalinkManagerEvents> = E[K];
+export type LavalinkNodeManagerContextOf<K extends keyof E, E = NecordNodeManagerEvents> = E[K];

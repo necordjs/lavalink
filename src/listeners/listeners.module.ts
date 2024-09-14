@@ -29,21 +29,21 @@ export class LavalinkListenersModule implements OnModuleInit {
 			const methods = this.metadataScanner.getAllMethodNames(prototype);
 
 			for (const method of methods) {
-				const listenerMeta = this.reflector.get<LavalinkListenerMeta>(
+				const meta = this.reflector.get<LavalinkListenerMeta>(
 					LavalinkListener,
 					instance[method]
 				);
 
-				if (!listenerMeta) continue;
+				if (!meta) continue;
 
-				const event = listenerMeta.event;
-				const host = listenerMeta.host;
+				const event = meta.event;
+				const host = meta.host;
 				const run = instance[method].bind(instance);
 
 				const key = `${event}:${host}`;
 
 				const listeners = groupedListeners.get(key) ?? [];
-				listeners.push({ ...listenerMeta, run });
+				listeners.push({ ...meta, run });
 				groupedListeners.set(key, listeners);
 			}
 		}
