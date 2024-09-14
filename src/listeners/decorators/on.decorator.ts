@@ -1,5 +1,6 @@
-import { Listener } from './listener.decorator';
-import { NecordLavalinkEvents } from '../listener.interface';
+import { LavalinkListener } from './listener.decorator';
+import { LavalinkHostType, LavalinkListenerType } from '../enums';
+import { NecordLavalinkManagerEvents, NecordNodeManagerEvents } from '../interfaces';
 
 /**
  * Decorator that marks a method as a listener for Lavalink client.
@@ -7,5 +8,12 @@ import { NecordLavalinkEvents } from '../listener.interface';
  * @returns The decorated method.
  * @url https://necord.org/recipes/lavalink/listeners
  */
-export const OnLavalink = <K extends keyof NecordLavalinkEvents>(event: K) =>
-	Listener({ type: 'on', event });
+export const OnLavalinkManager = <K extends keyof NecordLavalinkManagerEvents>(event: K) =>
+	LavalinkListener({
+		type: LavalinkListenerType.On,
+		event,
+		host: LavalinkHostType.LavalinkManager
+	});
+
+export const OnLavalinkNode = <K extends keyof NecordNodeManagerEvents>(event: K) =>
+	LavalinkListener({ type: LavalinkListenerType.On, event, host: LavalinkHostType.NodeManager });

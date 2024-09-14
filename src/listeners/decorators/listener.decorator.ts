@@ -1,5 +1,5 @@
-import { ListenerDiscovery, ListenerMeta } from '../listener.discovery';
 import { Reflector } from '@nestjs/core';
+import { LavalinkListenerMeta } from '../interfaces';
 
 /**
  * Decorator that marks a method as a listener for discord.js client.
@@ -7,6 +7,6 @@ import { Reflector } from '@nestjs/core';
  * @returns The decorated method.
  * @url https://necord.org/recipes/lavalink/listeners
  */
-export const Listener = Reflector.createDecorator<ListenerMeta, ListenerDiscovery>({
-	transform: options => new ListenerDiscovery(options)
+export const LavalinkListener = Reflector.createDecorator<LavalinkListenerMeta>({
+	transform: options => options
 });

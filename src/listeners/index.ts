@@ -1,4 +1,4 @@
 export * from './decorators';
-export * from './listener.interface';
-export * from './listener.discovery';
+export * from './enums';
+export * from './interfaces';
 export * from './listeners.module';
