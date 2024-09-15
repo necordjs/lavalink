@@ -5,7 +5,7 @@ import {
 import { Global, Logger, Module, OnApplicationShutdown, OnModuleInit } from '@nestjs/common';
 import * as ProvidersMap from './providers';
 import { DiscoveryModule } from '@nestjs/core';
-import { DestroyReasons, GuildShardPayload, LavalinkManager } from 'lavalink-client';
+import { DestroyReasons, LavalinkManager } from 'lavalink-client';
 import { Client } from 'discord.js';
 
 const Providers = Object.values(ProvidersMap);
@@ -13,21 +13,7 @@ const Providers = Object.values(ProvidersMap);
 @Global()
 @Module({
 	imports: [DiscoveryModule],
-	providers: [
-		...Providers,
-		{
-			provide: LAVALINK_MODULE_OPTIONS,
-			useFactory: (client: Client) => ({
-				sendToShard: (guildId: string, payload: GuildShardPayload) =>
-					client.guilds.cache.get(guildId)?.shard?.send(payload),
-				client: {
-					id: client.user.id,
-					username: client.user.username
-				}
-			}),
-			inject: [Client]
-		}
-	],
+	providers: [...Providers],
 	exports: [...Providers, LAVALINK_MODULE_OPTIONS]
 })
 export class NecordLavalinkModule
