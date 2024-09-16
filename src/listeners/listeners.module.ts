@@ -1,14 +1,17 @@
 import { Module, OnModuleInit } from '@nestjs/common';
 import { LavalinkManager, NodeManager } from 'lavalink-client';
-import { DiscoveryService, MetadataScanner, Reflector } from '@nestjs/core';
+import { DiscoveryModule, DiscoveryService, MetadataScanner, Reflector } from '@nestjs/core';
 import { LavalinkListener } from './decorators';
 import { LavalinkListenerMeta } from './interfaces';
+import { LavalinkHostType } from './enums';
 
 interface ExecutableListener extends LavalinkListenerMeta {
 	run: (...args: any[]) => void;
 }
 
-@Module({})
+@Module({
+	imports: [DiscoveryModule]
+})
 export class LavalinkListenersModule implements OnModuleInit {
 	public constructor(
 		private readonly discoveryService: DiscoveryService,
@@ -19,8 +22,13 @@ export class LavalinkListenersModule implements OnModuleInit {
 	) {}
 
 	public onModuleInit(): void {
-		const wrappers = this.discoveryService.getProviders();
 		const groupedListeners = new Map<string, ExecutableListener[]>();
+		const wrappers = this.discoveryService.getProviders().filter(wrapper => {
+			const { instance } = wrapper;
+			const prototype = instance ? Object.getPrototypeOf(instance) : null;
+
+			return instance && prototype && wrapper.isDependencyTreeStatic();
+		});
 
 		for (const wrapper of wrappers) {
 			const instance = wrapper.instance;
@@ -51,16 +59,18 @@ export class LavalinkListenersModule implements OnModuleInit {
 		for (const [key, listeners] of groupedListeners) {
 			const [event, host] = key.split(':');
 
-			if (host === 'LavalinkManager') {
+			if (host === LavalinkHostType.LavalinkManager) {
 				this.lavalinkManager.on(event as any, (...args: any[]) => {
 					for (const listener of listeners) {
-						listener.run(...args);
+						listener.run(args);
 					}
 				});
-			} else if (host === 'NodeManager') {
+			}
+
+			if (host === LavalinkHostType.NodeManager) {
 				this.nodeManager.on(event as any, (...args: any[]) => {
 					for (const listener of listeners) {
-						listener.run(...args);
+						listener.run(args);
 					}
 				});
 			}

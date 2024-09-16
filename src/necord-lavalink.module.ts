@@ -2,19 +2,27 @@ import {
 	ConfigurableModuleClass,
 	LAVALINK_MODULE_OPTIONS
 } from './necord-lavalink.module-definition';
-import { Global, Logger, Module, OnApplicationShutdown, OnModuleInit } from '@nestjs/common';
+import {
+	Global,
+	Inject,
+	Logger,
+	Module,
+	OnApplicationShutdown,
+	OnModuleInit
+} from '@nestjs/common';
 import * as ProvidersMap from './providers';
-import { DiscoveryModule } from '@nestjs/core';
 import { DestroyReasons, LavalinkManager } from 'lavalink-client';
 import { Client } from 'discord.js';
+import { LavalinkListenersModule } from './listeners';
+import { NecordLavalinkModuleOptions } from './necord-lavalink-options.interface';
 
 const Providers = Object.values(ProvidersMap);
 
 @Global()
 @Module({
-	imports: [DiscoveryModule],
-	providers: [...Providers],
-	exports: [...Providers, LAVALINK_MODULE_OPTIONS]
+	imports: [LavalinkListenersModule],
+	providers: Providers,
+	exports: Providers
 })
 export class NecordLavalinkModule
 	extends ConfigurableModuleClass
@@ -24,17 +32,23 @@ export class NecordLavalinkModule
 
 	public constructor(
 		private readonly client: Client,
-		private readonly lavalinkManager: LavalinkManager
+		private readonly lavalinkManager: LavalinkManager,
+		@Inject(LAVALINK_MODULE_OPTIONS)
+		private readonly options: NecordLavalinkModuleOptions
 	) {
 		super();
 	}
 
 	public onModuleInit() {
 		this.client.on('ready', async () => {
-			await this.lavalinkManager.init({
-				id: this.client.user.id,
-				username: this.client.user.username
-			});
+			await this.lavalinkManager.init(
+				this.options.client ?? {
+					id: this.client.user.id,
+					username: this.client.user.username
+				}
+			);
+
+			this.logger.log('Lavalink Manager Initialized');
 		});
 
 		this.client.on('raw', data => {
