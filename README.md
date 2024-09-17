@@ -32,9 +32,7 @@ $ yarn add @necord/lavalink necord discord.js
 $ pnpm add @necord/lavalink necord discord.js
 ```
 
-**Java 17.0.0 or newer is required.** \
-**Lavalink Server v4 or newer is required.** \
-[Lavalink Intallation Guide](https://lavalink.dev/configuration/)
+- [Lavalink Intallation Guide](https://lavalink.dev/getting-started/index.html)
 
 ## Usage
 
