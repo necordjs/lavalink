@@ -64,25 +64,25 @@ import { AppUpdate } from './app.update';
 export class AppModule {}
 ```
 
-Then create `app.update.ts` file and add `OnLavalink`/`OnceLavalink` decorators for handling Lavalink events:
+Then create `app.update.ts` file and add `OnLavalinkManager`/`OnceLavalinkManager` decorators for handling LavalinkManager events and `OnNodeManager`/`OnceNodeManager` decorators for handling NodeManager events:
 
 ```typescript
 import { Injectable, Logger } from '@nestjs/common';
 import { Context } from 'necord';
-import { OnLavalink, OnceLavalink, LavalinkContextOf } from '@necord/lavalink';
+import { OnLavalinkManager, OnNodeManager, LavalinkManagerContextOf, NodeManagerContextOf } from '@necord/lavalink';
 
 @Injectable()
 export class AppUpdate {
     private readonly logger = new Logger(AppUpdate.name);
     
-    @Once('create')
-    public onReady(@Context() [node]: LavalinkContextOf<'create'>) {
-        this.logger.log(`Node: ${node.options.id} Created/Connected`);
+    @OnNodeManager('connect')
+    public onReady(@Context() [node]: NodeManagerContextOf<'connect'>) {
+        this.logger.log(`Node: ${node.options.id} Connected`);
     }
 
-    @On('playerCreate')
-    public onWarn(@Context() [player]: LavalinkContextOf<'playerCreate'>) {
-        this.logger.warn(`Player created at ${player.guildId}`);
+    @OnLavalinkManager('playerCreate')
+    public onPlayerCreate(@Context() [player]: LavalinkManagerContextOf<'playerCreate'>) {
+        this.logger.log(`Player created at ${player.guildId}`);
     }
 }
 ```
