@@ -15,5 +15,5 @@ export const OnLavalinkManager = <K extends keyof NecordLavalinkManagerEvents>(e
 		host: LavalinkHostType.LavalinkManager
 	});
 
-export const OnLavalinkNode = <K extends keyof NecordNodeManagerEvents>(event: K) =>
+export const OnNodeManager = <K extends keyof NecordNodeManagerEvents>(event: K) =>
 	LavalinkListener({ type: LavalinkListenerType.On, event, host: LavalinkHostType.NodeManager });

@@ -15,7 +15,7 @@ export const OnceLavalinkManager = <K extends keyof NecordLavalinkManagerEvents>
 		host: LavalinkHostType.LavalinkManager
 	});
 
-export const OnceLavalinkNode = <K extends keyof NecordNodeManagerEvents>(event: K) =>
+export const OnceNodeManager = <K extends keyof NecordNodeManagerEvents>(event: K) =>
 	LavalinkListener({
 		type: LavalinkListenerType.Once,
 		event,
