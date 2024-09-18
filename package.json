@@ -1,6 +1,6 @@
 {
 	"name": "@necord/lavalink",
-	"description": "🎵 A implementation of lavalink-client for Necord",
+	"description": "A implementation of lavalink-client for Necord",
 	"version": "1.0.0",
 	"scripts": {
 		"build": "rimraf dist && tsc -p tsconfig.build.json",
