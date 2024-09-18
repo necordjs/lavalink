@@ -2,7 +2,7 @@
    <h1>
        <a href="#"><img src="https://necord.org/img/logo.png" alt ="Necord Logo"></a>
    </h1>
-   🎵 A implementation of for Necord <b><a href="https://github.com/Tomato6966/lavalink-client"> lavalink-client</a></b> for <a href="https://necord.org">Necord</a>
+   🎵 A implementation of <b><a href="https://github.com/Tomato6966/lavalink-client"> lavalink-client</a></b> for <a href="https://necord.org">Necord</a>
    <br/><br/>
    <a href="https://necord.org">Documentation ✨</a> &emsp; <a href="https://github.com/necordjs/necord">Source code 🪡</a> &emsp; <a href="https://github.com/necordjs/samples">Examples 🛠️</a> &emsp; <a href="https://discord.gg/mcBYvMTnwP">Community 💬</a>
 </div>
