@@ -24,7 +24,13 @@
 	},
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
-	"keywords": [],
+	"keywords": [
+		"necord",
+		"lavalink",
+		"lavalink-client",
+		"music",
+		"discord"
+	],
 	"license": "MIT",
 	"repository": {
 		"type": "git",
