@@ -1,7 +1,7 @@
 {
 	"name": "@necord/lavalink",
 	"description": "🎵 A implementation of lavalink-client for Necord",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"scripts": {
 		"build": "rimraf dist && tsc -p tsconfig.build.json",
 		"prepublish:npm": "npm run build",
@@ -25,7 +25,7 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/necordjs/lavalink"
+		"url": "git+https://github.com/necordjs/lavalink.git"
 	},
 	"bugs": {
 		"url": "https://github.com/necordjs/lavalink"
