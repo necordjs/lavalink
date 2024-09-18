@@ -2,7 +2,7 @@
    <h1>
        <a href="#"><img src="https://necord.org/img/logo.png" alt ="Necord Logo"></a>
    </h1>
-   🤖 A module for creating <b><a href="https://discord.com/">Discord</a> bots</b> using <a href="https://nestjs.com">NestJS</a>, based on <a href="https://discord.js.org/">Discord.js</a>
+   🎵 A implementation of for Necord <b><a href="https://github.com/Tomato6966/lavalink-client"> lavalink-client</a></b> for <a href="https://necord.org">Necord</a>
    <br/><br/>
    <a href="https://necord.org">Documentation ✨</a> &emsp; <a href="https://github.com/necordjs/necord">Source code 🪡</a> &emsp; <a href="https://github.com/necordjs/samples">Examples 🛠️</a> &emsp; <a href="https://discord.gg/mcBYvMTnwP">Community 💬</a>
 </div>
@@ -17,10 +17,12 @@
     <a href='https://img.shields.io/github/last-commit/necordjs/necord'><img src="https://img.shields.io/github/last-commit/SocketSomeone/necord" alt="Last commit" /></a>
 </p>
 
-
 ## About
 
-Transform your bot into a professional DJ with the power of the [Lavalink](https://lavalink.dev/) ecosystem. This package uses [lavalink-client](https://github.com/Tomato6966/lavalink-client) behind the scenes, providing a high-performance and efficient solution for managing audio streams on Discord. By leveraging Lavalink, your bot gains the ability to manage audio playback, queues, and real-time controls with minimal latency, transforming it into a fully capable and professional music system.
+Transform your bot into a professional DJ with the power of the [Lavalink](https://lavalink.dev/) ecosystem. This package
+uses [lavalink-client](https://github.com/Tomato6966/lavalink-client) behind the scenes, providing a high-performance and efficient solution
+for managing audio streams on Discord. By leveraging Lavalink, your bot gains the ability to manage audio playback, queues, and real-time
+controls with minimal latency, transforming it into a fully capable and professional music system.
 
 ## Installation
 
@@ -59,10 +61,12 @@ import { AppUpdate } from './app.update';
     ],
     providers: [AppUpdate]
 })
-export class AppModule {}
+export class AppModule {
+}
 ```
 
-Then create `app.update.ts` file and add `OnLavalinkManager`/`OnceLavalinkManager` decorators for handling LavalinkManager events and `OnNodeManager`/`OnceNodeManager` decorators for handling NodeManager events:
+Then create `app.update.ts` file and add `OnLavalinkManager`/`OnceLavalinkManager` decorators for handling LavalinkManager events and
+`OnNodeManager`/`OnceNodeManager` decorators for handling NodeManager events:
 
 ```typescript
 import { Injectable, Logger } from '@nestjs/common';
@@ -72,7 +76,7 @@ import { OnLavalinkManager, OnNodeManager, LavalinkManagerContextOf, NodeManager
 @Injectable()
 export class AppUpdate {
     private readonly logger = new Logger(AppUpdate.name);
-    
+
     @OnNodeManager('connect')
     public onReady(@Context() [node]: NodeManagerContextOf<'connect'>) {
         this.logger.log(`Node: ${node.options.id} Connected`);
