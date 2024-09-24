@@ -3952,7 +3952,7 @@ latest-version@^9.0.0:
   dependencies:
     package-json "^10.0.0"
 
-lavalink-client@^2.3.3:
+lavalink-client@^2.3.6:
   version "2.3.6"
   resolved "https://registry.yarnpkg.com/lavalink-client/-/lavalink-client-2.3.6.tgz#e30adeab2747d82a9069e5fd581c564d4db3e257"
   integrity sha512-h1FlGWekdjj9P1UPV/IIbk+JiTGXFrg8oe1qxVb3I0Jd6wUyaXaFpMeJa8Xmn/kiL5h0oghLuguOfiq43MPGHg==

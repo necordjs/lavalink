@@ -15,14 +15,15 @@ import { DestroyReasons, LavalinkManager } from 'lavalink-client';
 import { Client } from 'discord.js';
 import { LavalinkListenersModule } from './listeners';
 import { NecordLavalinkModuleOptions } from './necord-lavalink-options.interface';
+import { NecordLavalinkService } from './necord-lavalink.service';
 
 const Providers = Object.values(ProvidersMap);
 
 @Global()
 @Module({
 	imports: [LavalinkListenersModule],
-	providers: Providers,
-	exports: Providers
+	providers: [NecordLavalinkService, ...Providers],
+	exports: [NecordLavalinkService, ...Providers]
 })
 export class NecordLavalinkModule
 	extends ConfigurableModuleClass
