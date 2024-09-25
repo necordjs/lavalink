@@ -1,7 +1,7 @@
 {
 	"name": "@necord/lavalink",
 	"description": "A implementation of lavalink-client for Necord",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"scripts": {
 		"build": "rimraf dist && tsc -p tsconfig.build.json",
 		"prepublish:npm": "npm run build",
