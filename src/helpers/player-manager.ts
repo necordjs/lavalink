@@ -1,4 +1,4 @@
-import { LavalinkManager, Player, PlayerOptions } from 'lavalink-client';
+import { DestroyReasonsType, LavalinkManager, Player, PlayerOptions } from 'lavalink-client';
 
 export class PlayerManager {
 	public constructor(private readonly lavalinkManager: LavalinkManager) {}
@@ -11,8 +11,11 @@ export class PlayerManager {
 		return this.lavalinkManager.createPlayer(options);
 	}
 
-	public async destroy(guildId: string, destroyReason?: string): Promise<Player> {
-		return this.lavalinkManager.destroyPlayer(guildId, destroyReason);
+	public async destroy(
+		guildId: string,
+		destroyReason?: DestroyReasonsType
+	): Promise<void | Player> {
+		return await this.lavalinkManager.destroyPlayer(guildId, destroyReason);
 	}
 
 	public delete(guildId: string) {
