@@ -985,10 +985,10 @@
     path-to-regexp "3.3.0"
     tslib "2.7.0"
 
-"@nestjs/testing@10.4.9":
-  version "10.4.9"
-  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-10.4.9.tgz#c826d9df6be6a573c12ac4ce135f9c5be1a57aff"
-  integrity sha512-+zkhjXluB3nnZgOjLoyjFQkpVUMqtsZhyVw8mlfxtOc6DHTtColhzX/iCQHGyTXQRIvBbBYmJc6qI+DKfOfLvg==
+"@nestjs/testing@10.4.10":
+  version "10.4.10"
+  resolved "https://registry.yarnpkg.com/@nestjs/testing/-/testing-10.4.10.tgz#b7bf83c5d6d9ea6834148c2b201c4688a701f572"
+  integrity sha512-KBcXQpGJwEDofklvjysA4V1D+2/sWHoRdccHl23lciXnmpsMtBZxGu3GLJDspimJoNp47HFtjMHtAcKcC8EL/g==
   dependencies:
     tslib "2.7.0"
 
