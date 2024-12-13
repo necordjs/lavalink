@@ -3800,9 +3800,9 @@ latest-version@^9.0.0:
     package-json "^10.0.0"
 
 lavalink-client@^2.4.0:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/lavalink-client/-/lavalink-client-2.4.2.tgz#05dd44d697ca85c998ed3524af01bc6d254a30f0"
-  integrity sha512-QYwHe2BPwinOSrEM2SAmjc3e1OprPq/3laOycDq3dSgYnEMwIY345oIJswlP0ine+dLav0MSBbsFSFZ8uJ7RGg==
+  version "2.4.3"
+  resolved "https://registry.yarnpkg.com/lavalink-client/-/lavalink-client-2.4.3.tgz#0d81db3d6758fb8a572ff4249192e7ae6ea6faf2"
+  integrity sha512-L4n45OVJJTLkobsHp/TZZDwYFaivtSKMWOqGINWsVssGNcArSU4QqbOuaJDPDC14KZT0rYgEfsaYruwWGT9fXw==
   dependencies:
     tslib "^2.7.0"
     ws "^8.18.0"
