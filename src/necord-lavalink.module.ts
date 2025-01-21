@@ -52,9 +52,7 @@ export class NecordLavalinkModule
 			this.logger.log('Lavalink Manager Initialized');
 		});
 
-		this.client.on('raw', data => {
-			this.lavalinkManager.sendRawData(data);
-		});
+		this.client.on('raw', data => this.lavalinkManager.sendRawData(data));
 	}
 
 	public onApplicationShutdown() {
