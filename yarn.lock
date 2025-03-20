@@ -4714,9 +4714,9 @@ latest-version@^9.0.0:
     package-json "^10.0.0"
 
 lavalink-client@^2.4.0:
-  version "2.4.7"
-  resolved "https://registry.yarnpkg.com/lavalink-client/-/lavalink-client-2.4.7.tgz#8d52805fb55d9ea5f8bb6157aefdefbf28811a45"
-  integrity sha512-pczTEBhkOtWxxUTo607eDPl6bsINxWcExUCaTJNourvVjhcBd8X1atyJrqVu5RnA7+g8zglgYwm0b7e8IAXVZA==
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/lavalink-client/-/lavalink-client-2.5.0.tgz#6b3ad4429ddf4bf3a11d22289e77e97f000ba595"
+  integrity sha512-HWCnUKI8v5o2NeFjHOH/Yq+KI5h54Ra4XmUF223uoldhadGynHZS6ubleI9MYypsJ1jKyn2wLXMO1j7sPnGP7Q==
   dependencies:
     tslib "^2.8.1"
     ws "^8.18.0"
