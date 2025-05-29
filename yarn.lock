@@ -4647,9 +4647,9 @@ kleur@^3.0.3:
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
 
 lavalink-client@^2.4.0:
-  version "2.5.4"
-  resolved "https://registry.yarnpkg.com/lavalink-client/-/lavalink-client-2.5.4.tgz#f179c452e5c9bbf41526af28dec664f34707cfcd"
-  integrity sha512-PN1JkgEEDDjqtxTfXX/ZIKYYMqJecqP8Vv2lUE9/Is5UVBfberLkHX+8Q5AZUD2rMyLGm02wczQbDtANhJiqmw==
+  version "2.5.5"
+  resolved "https://registry.yarnpkg.com/lavalink-client/-/lavalink-client-2.5.5.tgz#ab5471755bbcb72876315672e7562ea706c46751"
+  integrity sha512-Mi0xOCM3hoIyGQjhzYkn99WpBFbh1gqGY42RSID4uz0Urci2Iv2Lwv4jlA9liCZAzgml+EQQXeNxceoUWGji1w==
   dependencies:
     tslib "^2.8.1"
     ws "^8.18.2"
