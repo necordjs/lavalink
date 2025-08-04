@@ -3,12 +3,16 @@ name: Continuous Integration
 on:
   push:
     branches: [ master ]
-    paths-ignore: [ '.github/**' ]
+    paths-ignore: ['.github/**']
   pull_request:
-    paths-ignore: [ '.github/**' ]
+    paths-ignore: ['.github/**']
+
+permissions:
+  contents: read
 
 jobs:
   build:
+    name: Build and Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -30,5 +34,5 @@ jobs:
       - name: Run Build
         run: yarn build
 
-      # - name: Run Tests
-      #  run: yarn test --ci --passWithNoTests
+      - name: Run Tests
+        run: yarn test:ci
