@@ -23,7 +23,7 @@ const Providers = Object.values(ProvidersMap);
 @Module({
 	imports: [LavalinkListenersModule],
 	providers: [NecordLavalinkService, ...Providers],
-	exports: [NecordLavalinkService, ...Providers]
+	exports: [NecordLavalinkService, ...Providers, LAVALINK_MODULE_OPTIONS]
 })
 export class NecordLavalinkModule
 	extends ConfigurableModuleClass
