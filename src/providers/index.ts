@@ -1,3 +1,3 @@
 export * from './lavalink-manager.provider';
-export * from './node-manager.provider';
-export * from './player.provider';
+export * from './lavalink-node-manager.provider';
+export * from './lavalink-utils.provider';
