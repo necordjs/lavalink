@@ -16,13 +16,15 @@ import { Client } from 'discord.js';
 import { LavalinkListenersModule } from './listeners';
 import { NecordLavalinkModuleOptions } from './necord-lavalink-options.interface';
 import { NecordLavalinkService } from './necord-lavalink.service';
+import { ResumingHandler } from './helpers/handle-resuming';
+import { PlayerSaver } from './helpers/player-saver';
 
 const Providers = Object.values(ProvidersMap);
 
 @Global()
 @Module({
 	imports: [LavalinkListenersModule],
-	providers: [NecordLavalinkService, ...Providers],
+	providers: [NecordLavalinkService, PlayerSaver, ...Providers],
 	exports: [NecordLavalinkService, ...Providers, LAVALINK_MODULE_OPTIONS]
 })
 export class NecordLavalinkModule
@@ -35,12 +37,13 @@ export class NecordLavalinkModule
 		private readonly client: Client,
 		private readonly lavalinkManager: LavalinkManager,
 		@Inject(LAVALINK_MODULE_OPTIONS)
-		private readonly options: NecordLavalinkModuleOptions
+		private readonly options: NecordLavalinkModuleOptions,
+		private readonly resumingHandler: ResumingHandler
 	) {
 		super();
 	}
 
-	public onModuleInit() {
+	public async onModuleInit() {
 		this.client.on('ready', async () => {
 			await this.lavalinkManager.init(
 				this.options.client ?? {
@@ -53,6 +56,10 @@ export class NecordLavalinkModule
 		});
 
 		this.client.on('raw', data => this.lavalinkManager.sendRawData(data));
+
+		if (this.options.autoResume) {
+			await this.resumingHandler.resume();
+		}
 	}
 
 	public onApplicationShutdown() {
