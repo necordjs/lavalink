@@ -7,8 +7,8 @@ import {
 	OnModuleInit
 } from '@nestjs/common';
 import * as ProvidersMap from './providers';
-import { DestroyReasons, LavalinkManager, NodeManager } from 'lavalink-client';
-import { Client, ClientOptions } from 'discord.js';
+import { BotClientOptions, DestroyReasons, LavalinkManager, NodeManager } from 'lavalink-client';
+import { Client } from 'discord.js';
 import {
 	ConfigurableModuleClass,
 	LAVALINK_MODULE_OPTIONS
@@ -17,7 +17,6 @@ import { LavalinkListenersModule } from './listeners';
 import { NecordLavalinkModuleOptions } from './necord-lavalink-options.interface';
 import { NecordLavalinkService } from './necord-lavalink.service';
 import { PlayerManager } from './helpers';
-import type { BotClientOptions } from 'lavalink-client/dist/types/structures/Types/Manager';
 
 const Providers = Object.values(ProvidersMap);
 
