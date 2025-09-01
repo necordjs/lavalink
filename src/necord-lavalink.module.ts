@@ -7,6 +7,7 @@ import {
 	Inject,
 	Logger,
 	Module,
+	OnApplicationBootstrap,
 	OnApplicationShutdown,
 	OnModuleInit
 } from '@nestjs/common';
@@ -29,7 +30,7 @@ const Providers = Object.values(ProvidersMap);
 })
 export class NecordLavalinkModule
 	extends ConfigurableModuleClass
-	implements OnModuleInit, OnApplicationShutdown
+	implements OnModuleInit, OnApplicationShutdown, OnApplicationBootstrap
 {
 	private readonly logger = new Logger(NecordLavalinkModule.name);
 
@@ -56,7 +57,9 @@ export class NecordLavalinkModule
 		});
 
 		this.client.on('raw', data => this.lavalinkManager.sendRawData(data));
+	}
 
+	public async onApplicationBootstrap() {
 		if (this.options.autoResume) {
 			await this.resumingHandler.resume();
 		}
