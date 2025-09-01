@@ -70,7 +70,7 @@ export class PlayerSaver {
 		return sessions;
 	}
 
-	private transformId(guildId: string): string {
+	public transformId(guildId: string): string {
 		return `player:${guildId}`;
 	}
 }

@@ -50,10 +50,11 @@ export class ResumingHandler {
 			this.logger.log(`Node: \`${node.id}\` started resuming ${players.length} players`);
 
 			for (const playerData of players) {
-				const savedPlayer = await this.store.get(playerData.guildId);
+				const id = this.playerSaver.transformId(playerData.guildId);
+				const savedPlayer = await this.store.get(id);
 
 				if (!playerData.state.connected) {
-					await this.store.delete(playerData.guildId);
+					await this.store.delete(id);
 				}
 
 				const player = this.playerManager.create({
