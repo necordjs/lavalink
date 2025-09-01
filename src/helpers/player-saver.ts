@@ -7,7 +7,7 @@ import { PlayerStore } from '../constants';
 export class PlayerSaver {
 	public constructor(@Inject(PlayerStore) private readonly store: BaseStore) {}
 
-	private readonly logger = new Logger('PlayerSaver');
+	private readonly logger = new Logger(PlayerSaver.name);
 
 	public async savePlayerOnUpdate(oldPlayer: PlayerJson, newPlayer: Player): Promise<void> {
 		const newPlayerData = newPlayer.toJSON();
@@ -53,16 +53,15 @@ export class PlayerSaver {
 				if (!player.value) {
 					continue;
 				}
-					const rawValue = Buffer.isBuffer(player.value)
-						? player.value.toString('utf-8')
-						: player.value;
+				const rawValue = Buffer.isBuffer(player.value)
+					? player.value.toString('utf-8')
+					: player.value;
 
-					const playerObj = JSON.parse(rawValue) as PlayerJson;
+				const playerObj = JSON.parse(rawValue) as PlayerJson;
 
-					if (playerObj.nodeSessionId && playerObj.nodeId) {
-						sessions.set(playerObj.nodeId, playerObj.nodeSessionId);
-					}
-				
+				if (playerObj.nodeSessionId && playerObj.nodeId) {
+					sessions.set(playerObj.nodeId, playerObj.nodeSessionId);
+				}
 			}
 		} catch (error) {
 			this.logger.error('Error fetching saved player sessions', error);
