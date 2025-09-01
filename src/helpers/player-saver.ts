@@ -66,6 +66,8 @@ export class PlayerSaver {
 			this.logger.error('Error fetching saved player sessions', error);
 			return new Map();
 		}
+
+		return sessions;
 	}
 
 	private transformId(guildId: string): string {
