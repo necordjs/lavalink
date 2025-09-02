@@ -14,9 +14,12 @@ describe('NecordLavalinkModule', () => {
 	beforeEach(async () => {
 		mockClient = {
 			user: { id: '123', username: 'TestBot' },
-			once: jest.fn().mockReturnThis(),
-			on: jest.fn().mockReturnThis()
+			once: jest.fn(),
+			on: jest.fn()
 		};
+
+		mockClient.once.mockReturnValue(mockClient);
+		mockClient.on.mockReturnValue(mockClient);
 
 		mockLavalinkManager = {
 			init: jest.fn(),
@@ -78,10 +81,12 @@ describe('NecordLavalinkModule', () => {
 
 		mockClient.once.mockImplementationOnce((event, handler) => {
 			if (event === 'ready') readyHandler = handler;
+			return mockClient;
 		});
 
 		mockClient.on.mockImplementationOnce((event, handler) => {
 			if (event === 'raw') rawHandler = handler;
+			return mockClient;
 		});
 
 		module.onModuleInit();
@@ -99,8 +104,13 @@ describe('NecordLavalinkModule', () => {
 	it('should call sendRawData on raw event', () => {
 		let rawHandler: (data: any) => void;
 
+		mockClient.once.mockImplementationOnce((event, handler) => {
+			return mockClient; // Return mockClient to maintain chaining
+		});
+
 		mockClient.on.mockImplementationOnce((event, handler) => {
 			if (event === 'raw') rawHandler = handler;
+			return mockClient; // Return mockClient to maintain chaining
 		});
 
 		module.onModuleInit();

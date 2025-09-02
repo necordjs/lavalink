@@ -18,7 +18,6 @@ describe('LavalinkListenersModule', () => {
 	let reflector: any;
 
 	beforeEach(async () => {
-		// Mocks
 		lavalinkManager = { on: jest.fn() };
 		nodeManager = { on: jest.fn() };
 
