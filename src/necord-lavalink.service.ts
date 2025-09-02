@@ -12,8 +12,8 @@ import { LavalinkManager, Player } from 'lavalink-client';
 @Injectable()
 export class NecordLavalinkService {
 	public constructor(
-		private readonly lavalinkManager: LavalinkManager,
-		private readonly client: Client
+		private readonly client: Client,
+		private readonly lavalinkManager: LavalinkManager
 	) {}
 
 	public lavalinkUtils = this.lavalinkManager.utils;
