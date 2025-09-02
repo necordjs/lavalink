@@ -1,8 +1,4 @@
 import {
-	ConfigurableModuleClass,
-	LAVALINK_MODULE_OPTIONS
-} from './necord-lavalink.module-definition';
-import {
 	Global,
 	Inject,
 	Logger,
@@ -12,13 +8,16 @@ import {
 	OnModuleInit
 } from '@nestjs/common';
 import * as ProvidersMap from './providers';
-import { DestroyReasons, LavalinkManager } from 'lavalink-client';
+import { BotClientOptions, DestroyReasons, LavalinkManager, NodeManager } from 'lavalink-client';
 import { Client } from 'discord.js';
+import {
+	ConfigurableModuleClass,
+	LAVALINK_MODULE_OPTIONS
+} from './necord-lavalink.module-definition';
 import { LavalinkListenersModule } from './listeners';
 import { NecordLavalinkModuleOptions } from './necord-lavalink-options.interface';
 import { NecordLavalinkService } from './necord-lavalink.service';
-import { ResumingHandler } from './helpers/handle-resuming';
-import { PlayerSaver } from './helpers/player-saver';
+import { PlayerSaver, ResumingHandler } from './helpers';
 
 const Providers = Object.values(ProvidersMap);
 
@@ -37,6 +36,7 @@ export class NecordLavalinkModule
 	public constructor(
 		private readonly client: Client,
 		private readonly lavalinkManager: LavalinkManager,
+		private readonly nodeManager: NodeManager,
 		@Inject(LAVALINK_MODULE_OPTIONS)
 		private readonly options: NecordLavalinkModuleOptions,
 		private readonly resumingHandler: ResumingHandler
@@ -44,19 +44,15 @@ export class NecordLavalinkModule
 		super();
 	}
 
-	public async onModuleInit() {
-		this.client.on('ready', async () => {
-			await this.lavalinkManager.init(
-				this.options.client ?? {
-					id: this.client.user.id,
-					username: this.client.user.username
-				}
-			);
 
-			this.logger.log('Lavalink Manager Initialized');
-		});
+	public onModuleInit() {
+		return this.client
+			.once('clientReady', async () => {
+				await this.lavalinkManager.init(this.getClientOptions());
 
-		this.client.on('raw', data => this.lavalinkManager.sendRawData(data));
+				this.logger.log('Lavalink Manager Initialized');
+			})
+			.on('raw', data => this.lavalinkManager.sendRawData(data));
 	}
 
 	public async onApplicationBootstrap() {
@@ -69,9 +65,17 @@ export class NecordLavalinkModule
 		this.logger.log('Shutting down Necord Lavalink Module');
 		this.lavalinkManager.removeAllListeners();
 		this.lavalinkManager.players.forEach(player => player.destroy(DestroyReasons.Disconnected));
-		this.lavalinkManager.nodeManager.removeAllListeners();
-		this.lavalinkManager.nodeManager.nodes.forEach(node =>
-			node.destroy(DestroyReasons.NodeDestroy)
+
+		this.nodeManager.removeAllListeners();
+		this.nodeManager.nodes.forEach(node => node.destroy(DestroyReasons.NodeDestroy));
+	}
+
+	private getClientOptions(): BotClientOptions {
+		return (
+			this.options.client ?? {
+				id: this.client.user.id,
+				username: this.client.user.username
+			}
 		);
 	}
 }
