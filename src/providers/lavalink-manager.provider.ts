@@ -22,7 +22,7 @@ export const LavalinkManagerProvider: Provider<LavalinkManager> = {
 			}));
 		}
 
-		return new LavalinkManager<T>({
+		return new LavalinkManager({
 			...options,
 			nodes,
 			sendToShard: (guildId: string, payload: any) =>
