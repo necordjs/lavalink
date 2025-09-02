@@ -47,7 +47,7 @@ describe('LavalinkListenersModule', () => {
 
 		moduleRef = await Test.createTestingModule({
 			providers: [
-				LavalinkListenersModule,
+				LavalinkListenersModule, //TODO: FIXME!!!
 				{
 					provide: DiscoveryService,
 					useValue: discoveryService
@@ -75,7 +75,9 @@ describe('LavalinkListenersModule', () => {
 	});
 
 	afterEach(async () => {
-		await moduleRef.close();
+		if (moduleRef) {
+			await moduleRef.close();
+		}
 	});
 
 	it('should register LavalinkManager listener on onModuleInit', () => {

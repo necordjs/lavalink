@@ -80,7 +80,7 @@ describe('NecordLavalinkModule', () => {
 		let rawHandler: (data: any) => void;
 
 		mockClient.once.mockImplementationOnce((event, handler) => {
-			if (event === 'ready') readyHandler = handler;
+			if (event === 'clientReady') readyHandler = handler;
 			return mockClient;
 		});
 
@@ -97,7 +97,7 @@ describe('NecordLavalinkModule', () => {
 			id: '123',
 			username: 'TestBot'
 		});
-		expect(mockClient.once).toHaveBeenCalledWith('ready', expect.any(Function));
+		expect(mockClient.once).toHaveBeenCalledWith('clientReady', expect.any(Function));
 		expect(mockClient.on).toHaveBeenCalledWith('raw', expect.any(Function));
 	});
 
