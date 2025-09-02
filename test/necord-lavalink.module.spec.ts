@@ -1,7 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { DestroyReasons, LavalinkManager, NodeManager } from 'lavalink-client';
 import { Client } from 'discord.js';
-import { NecordLavalinkModuleOptions, NecordLavalinkModule, LAVALINK_MODULE_OPTIONS } from '../src';
+import {
+	NecordLavalinkModuleOptions,
+	NecordLavalinkModule,
+	LAVALINK_MODULE_OPTIONS,
+	ResumingHandler
+} from '../src';
 
 describe('NecordLavalinkModule', () => {
 	let module: NecordLavalinkModule;
@@ -10,6 +15,7 @@ describe('NecordLavalinkModule', () => {
 	let mockLavalinkManager: any;
 	let mockNodeManager: any;
 	let mockOptions: NecordLavalinkModuleOptions;
+	let mockResumingHandler: any;
 
 	beforeEach(async () => {
 		mockClient = {
@@ -31,6 +37,10 @@ describe('NecordLavalinkModule', () => {
 		mockNodeManager = {
 			removeAllListeners: jest.fn(),
 			nodes: [{ destroy: jest.fn() }, { destroy: jest.fn() }]
+		};
+
+		mockResumingHandler = {
+			resume: jest.fn()
 		};
 
 		mockOptions = {
@@ -64,6 +74,10 @@ describe('NecordLavalinkModule', () => {
 				{
 					provide: LAVALINK_MODULE_OPTIONS,
 					useValue: mockOptions
+				},
+				{
+					provide: ResumingHandler,
+					useValue: mockResumingHandler
 				}
 			]
 		}).compile();
@@ -105,12 +119,12 @@ describe('NecordLavalinkModule', () => {
 		let rawHandler: (data: any) => void;
 
 		mockClient.once.mockImplementationOnce((event, handler) => {
-			return mockClient; // Return mockClient to maintain chaining
+			return mockClient;
 		});
 
 		mockClient.on.mockImplementationOnce((event, handler) => {
 			if (event === 'raw') rawHandler = handler;
-			return mockClient; // Return mockClient to maintain chaining
+			return mockClient;
 		});
 
 		module.onModuleInit();
@@ -166,6 +180,10 @@ describe('NecordLavalinkModule', () => {
 				{
 					provide: LAVALINK_MODULE_OPTIONS,
 					useValue: customOptions
+				},
+				{
+					provide: ResumingHandler,
+					useValue: mockResumingHandler
 				}
 			]
 		}).compile();
