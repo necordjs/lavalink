@@ -44,7 +44,7 @@ export class NecordLavalinkModule
 
 	public onModuleInit() {
 		return this.client
-			.once('ready', async () => {
+			.once('clientReady', async () => {
 				await this.lavalinkManager.init(this.getClientOptions());
 
 				this.logger.log('Lavalink Manager Initialized');
