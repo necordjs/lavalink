@@ -1,14 +1,17 @@
-import { DestroyReasons } from 'lavalink-client';
-import { NecordLavalinkModuleOptions, NecordLavalinkModule } from '../src';
+import { Test, TestingModule } from '@nestjs/testing';
+import { DestroyReasons, LavalinkManager, NodeManager } from 'lavalink-client';
+import { Client } from 'discord.js';
+import { NecordLavalinkModuleOptions, NecordLavalinkModule, LAVALINK_MODULE_OPTIONS } from '../src';
 
 describe('NecordLavalinkModule', () => {
 	let module: NecordLavalinkModule;
+	let moduleRef: TestingModule;
 	let mockClient: any;
 	let mockLavalinkManager: any;
 	let mockNodeManager: any;
 	let mockOptions: NecordLavalinkModuleOptions;
 
-	beforeEach(() => {
+	beforeEach(async () => {
 		mockClient = {
 			user: { id: '123', username: 'TestBot' },
 			once: jest.fn().mockReturnThis(),
@@ -40,19 +43,50 @@ describe('NecordLavalinkModule', () => {
 			]
 		};
 
-		module = new NecordLavalinkModule(
-			mockClient,
-			mockLavalinkManager,
-			mockNodeManager,
-			mockOptions
-		);
+		moduleRef = await Test.createTestingModule({
+			providers: [
+				NecordLavalinkModule,
+				{
+					provide: Client,
+					useValue: mockClient
+				},
+				{
+					provide: LavalinkManager,
+					useValue: mockLavalinkManager
+				},
+				{
+					provide: NodeManager,
+					useValue: mockNodeManager
+				},
+				{
+					provide: LAVALINK_MODULE_OPTIONS,
+					useValue: mockOptions
+				}
+			]
+		}).compile();
+
+		module = moduleRef.get<NecordLavalinkModule>(NecordLavalinkModule);
+	});
+
+	afterEach(async () => {
+		await moduleRef.close();
 	});
 
 	it('should initialize LavalinkManager on client ready', async () => {
+		let readyHandler: () => void;
+		let rawHandler: (data: any) => void;
+
+		mockClient.once.mockImplementationOnce((event, handler) => {
+			if (event === 'ready') readyHandler = handler;
+		});
+
+		mockClient.on.mockImplementationOnce((event, handler) => {
+			if (event === 'raw') rawHandler = handler;
+		});
+
 		module.onModuleInit();
 
-		const readyCallback = mockClient.once.mock.calls.find(call => call[0] === 'ready')[1];
-		await readyCallback();
+		await readyHandler();
 
 		expect(mockLavalinkManager.init).toHaveBeenCalledWith({
 			id: '123',
@@ -63,11 +97,16 @@ describe('NecordLavalinkModule', () => {
 	});
 
 	it('should call sendRawData on raw event', () => {
+		let rawHandler: (data: any) => void;
+
+		mockClient.on.mockImplementationOnce((event, handler) => {
+			if (event === 'raw') rawHandler = handler;
+		});
+
 		module.onModuleInit();
 
-		const rawCallback = mockClient.on.mock.calls.find(call => call[0] === 'raw')[1];
 		const data = { op: 'test' };
-		rawCallback(data);
+		rawHandler(data);
 
 		expect(mockLavalinkManager.sendRawData).toHaveBeenCalledWith(data);
 	});
@@ -93,20 +132,41 @@ describe('NecordLavalinkModule', () => {
 		});
 	});
 
-	it('getClientOptions should return provided client options if exists', () => {
-		const customModule = new NecordLavalinkModule(
-			mockClient,
-			mockLavalinkManager,
-			mockNodeManager,
-			{
-				client: { id: '999', username: 'CustomBot' },
-				nodes: mockOptions.nodes
-			}
-		);
+	it('getClientOptions should return provided client options if exists', async () => {
+		const customOptions = {
+			client: { id: '999', username: 'CustomBot' },
+			nodes: mockOptions.nodes
+		};
+
+		const customModuleRef = await Test.createTestingModule({
+			providers: [
+				NecordLavalinkModule,
+				{
+					provide: Client,
+					useValue: mockClient
+				},
+				{
+					provide: LavalinkManager,
+					useValue: mockLavalinkManager
+				},
+				{
+					provide: NodeManager,
+					useValue: mockNodeManager
+				},
+				{
+					provide: LAVALINK_MODULE_OPTIONS,
+					useValue: customOptions
+				}
+			]
+		}).compile();
+
+		const customModule = customModuleRef.get<NecordLavalinkModule>(NecordLavalinkModule);
 
 		expect(customModule['getClientOptions']()).toEqual({
 			id: '999',
 			username: 'CustomBot'
 		});
+
+		await customModuleRef.close();
 	});
 });

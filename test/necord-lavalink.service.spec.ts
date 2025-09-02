@@ -72,15 +72,11 @@ describe('NecordLavalinkService', () => {
 	});
 
 	describe('extractPlayerData', () => {
-		it('should fetch guild, voiceChannel and textChannel', async () => {
+		it('should fetch guild correctly', async () => {
 			const mockGuild = {} as Guild;
-			const mockVoiceChannel = {} as VoiceChannel;
-			const mockTextChannel = {} as TextChannel;
 
 			mockClient.guilds.fetch.mockResolvedValue(mockGuild);
-			mockClient.channels.fetch
-				.mockResolvedValueOnce(mockVoiceChannel)
-				.mockResolvedValueOnce(mockTextChannel);
+			mockClient.channels.fetch.mockResolvedValue({} as VoiceChannel);
 
 			const player = {
 				guildId: 'guildId1',
@@ -91,14 +87,47 @@ describe('NecordLavalinkService', () => {
 			const data = await service.extractPlayerData(player);
 
 			expect(mockClient.guilds.fetch).toHaveBeenCalledWith('guildId1');
-			expect(mockClient.channels.fetch).toHaveBeenCalledWith('voiceId1');
-			expect(mockClient.channels.fetch).toHaveBeenCalledWith('textId1');
+			expect(data.guild).toBe(mockGuild);
+		});
 
-			expect(data).toEqual({
-				guild: mockGuild,
-				voiceChannel: mockVoiceChannel,
-				textChannel: mockTextChannel
-			});
+		it('should fetch voice channel correctly', async () => {
+			const mockVoiceChannel = {} as VoiceChannel;
+
+			mockClient.guilds.fetch.mockResolvedValue({} as Guild);
+			mockClient.channels.fetch
+				.mockResolvedValueOnce(mockVoiceChannel)
+				.mockResolvedValueOnce({} as TextChannel);
+
+			const player = {
+				guildId: 'guildId1',
+				voiceChannelId: 'voiceId1',
+				textChannelId: 'textId1'
+			} as Player;
+
+			const data = await service.extractPlayerData(player);
+
+			expect(mockClient.channels.fetch).toHaveBeenCalledWith('voiceId1');
+			expect(data.voiceChannel).toBe(mockVoiceChannel);
+		});
+
+		it('should fetch text channel correctly', async () => {
+			const mockTextChannel = {} as TextChannel;
+
+			mockClient.guilds.fetch.mockResolvedValue({} as Guild);
+			mockClient.channels.fetch
+				.mockResolvedValueOnce({} as VoiceChannel)
+				.mockResolvedValueOnce(mockTextChannel);
+
+			const player = {
+				guildId: 'guildId1',
+				voiceChannelId: 'voiceId1',
+				textChannelId: 'textId1'
+			} as Player;
+
+			const data = await service.extractPlayerData(player);
+
+			expect(mockClient.channels.fetch).toHaveBeenCalledWith('textId1');
+			expect(data.textChannel).toBe(mockTextChannel);
 		});
 	});
 });

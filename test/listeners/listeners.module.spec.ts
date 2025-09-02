@@ -1,3 +1,6 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { DiscoveryService, MetadataScanner, Reflector } from '@nestjs/core';
+import { LavalinkManager, NodeManager } from 'lavalink-client';
 import {
 	LavalinkHostType,
 	LavalinkListenerMeta,
@@ -7,13 +10,14 @@ import {
 
 describe('LavalinkListenersModule', () => {
 	let module: LavalinkListenersModule;
+	let moduleRef: TestingModule;
 	let lavalinkManager: any;
 	let nodeManager: any;
 	let discoveryService: any;
 	let metadataScanner: any;
 	let reflector: any;
 
-	beforeEach(() => {
+	beforeEach(async () => {
 		// Mocks
 		lavalinkManager = { on: jest.fn() };
 		nodeManager = { on: jest.fn() };
@@ -42,13 +46,37 @@ describe('LavalinkListenersModule', () => {
 			} as LavalinkListenerMeta)
 		};
 
-		module = new LavalinkListenersModule(
-			discoveryService,
-			metadataScanner,
-			reflector,
-			lavalinkManager,
-			nodeManager
-		);
+		moduleRef = await Test.createTestingModule({
+			providers: [
+				LavalinkListenersModule,
+				{
+					provide: DiscoveryService,
+					useValue: discoveryService
+				},
+				{
+					provide: MetadataScanner,
+					useValue: metadataScanner
+				},
+				{
+					provide: Reflector,
+					useValue: reflector
+				},
+				{
+					provide: LavalinkManager,
+					useValue: lavalinkManager
+				},
+				{
+					provide: NodeManager,
+					useValue: nodeManager
+				}
+			]
+		}).compile();
+
+		module = moduleRef.get<LavalinkListenersModule>(LavalinkListenersModule);
+	});
+
+	afterEach(async () => {
+		await moduleRef.close();
 	});
 
 	it('should register LavalinkManager listener on onModuleInit', () => {
@@ -60,12 +88,18 @@ describe('LavalinkListenersModule', () => {
 	});
 
 	it('should call the decorated method when event is emitted', () => {
+		let registeredHandler: (...args: any[]) => void;
+
+		lavalinkManager.on.mockImplementationOnce((event, handler) => {
+			registeredHandler = handler;
+		});
+
 		module.onModuleInit();
 
-		const callback = lavalinkManager.on.mock.calls[0][1];
-		const provider = discoveryService.getProviders()[0].instance;
+		const discoveryServiceFromModule = moduleRef.get<DiscoveryService>(DiscoveryService);
+		const provider = discoveryServiceFromModule.getProviders()[0].instance;
 
-		callback('arg1', 'arg2');
+		registeredHandler('arg1', 'arg2');
 
 		expect(provider.onPlayerCreate).toHaveBeenCalledWith(['arg1', 'arg2']);
 	});
