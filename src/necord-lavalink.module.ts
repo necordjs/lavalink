@@ -44,7 +44,6 @@ export class NecordLavalinkModule
 		super();
 	}
 
-
 	public onModuleInit() {
 		return this.client
 			.once('clientReady', async () => {

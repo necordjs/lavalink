@@ -1,6 +1,5 @@
 import { PlayerStore } from '../constants';
-import { BaseStore } from '../structures/base-store';
-import { PlayerSaver } from '../helpers/player-saver';
+import { BaseStore, PlayerSaver } from '../helpers';
 
 export const PlayerSaverProvider = {
 	provide: PlayerSaver,
