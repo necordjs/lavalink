@@ -11,20 +11,11 @@ export class PlayerSaver {
 
 	public async savePlayerOnUpdate(oldPlayer: PlayerJson, newPlayer: Player): Promise<void> {
 		const newPlayerData = newPlayer.toJSON();
+		function normalize(obj: unknown) {
+			return JSON.stringify(obj, Object.keys(obj).sort());
+		}
 
-		if (
-			!oldPlayer ||
-			oldPlayer.voiceChannelId !== newPlayerData.voiceChannelId ||
-			oldPlayer.textChannelId !== newPlayerData.textChannelId ||
-			oldPlayer.options.selfDeaf !== newPlayerData.options.selfDeaf ||
-			oldPlayer.options.selfMute !== newPlayerData.options.selfMute ||
-			oldPlayer.nodeId !== newPlayerData.nodeId ||
-			oldPlayer.nodeSessionId !== newPlayerData.nodeSessionId ||
-			oldPlayer.options.applyVolumeAsFilter !== newPlayerData.options.applyVolumeAsFilter ||
-			oldPlayer.options.instaUpdateFiltersFix !==
-				newPlayerData.options.instaUpdateFiltersFix ||
-			oldPlayer.options.vcRegion !== newPlayerData.options.vcRegion
-		) {
+		if (!oldPlayer || normalize(oldPlayer) !== normalize(newPlayerData)) {
 			const id = this.transformId(newPlayerData.guildId);
 			await this.store.save(id, JSON.stringify(newPlayerData));
 		}
