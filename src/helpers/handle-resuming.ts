@@ -43,7 +43,7 @@ export class ResumingHandler {
 
 		this.nodeManager.on('resumed', async (node, payload, players) => {
 			if (!Array.isArray(players)) {
-				this.logger.log(`Node: \`${node.id}\` has no players to resume`);
+				this.logger.verbose(`Node: \`${node.id}\` has no players to resume`);
 				return;
 			}
 
