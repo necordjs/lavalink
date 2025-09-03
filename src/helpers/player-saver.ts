@@ -39,11 +39,12 @@ export class PlayerSaver {
 
 		if (players.length === 0) return new Map();
 
-		try {
-			for (const player of players) {
-				if (!player.value) {
-					continue;
-				}
+		for (const player of players) {
+			if (!player.value) {
+				continue;
+			}
+
+			try {
 				const rawValue = Buffer.isBuffer(player.value)
 					? player.value.toString('utf-8')
 					: player.value;
@@ -53,10 +54,13 @@ export class PlayerSaver {
 				if (playerObj.nodeSessionId && playerObj.nodeId) {
 					sessions.set(playerObj.nodeId, playerObj.nodeSessionId);
 				}
+			} catch (error) {
+				this.logger.warn(
+					'Error parsing saved player data, skipping corrupted entry',
+					error
+				);
+				continue;
 			}
-		} catch (error) {
-			this.logger.error('Error fetching saved player sessions', error);
-			return new Map();
 		}
 
 		return sessions;
