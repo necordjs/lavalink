@@ -3,7 +3,7 @@
 	"description": "A implementation of lavalink-client for Necord",
 	"version": "1.1.6",
 	"scripts": {
-		"build": "rimraf dist && tsc -p tsconfig.build.json",
+		"build": "rimraf -rf dist && tsc -p tsconfig.build.json",
 		"prepublish:npm": "npm run build",
 		"publish:npm": "release-it",
 		"prepublish:dev": "npm run build",
@@ -47,7 +47,9 @@
 	"contributors": [
 		"Alexey Filippov <socket.someone@gmail.com>"
 	],
-	"dependencies": {},
+	"dependencies": {
+		"tslib": "^2.8.1"
+	},
 	"devDependencies": {
 		"@commitlint/cli": "19.8.0",
 		"@commitlint/config-angular": "19.8.0",
