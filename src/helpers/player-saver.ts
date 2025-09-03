@@ -5,9 +5,9 @@ import { PlayerStore } from '../constants';
 
 @Injectable()
 export class PlayerSaver {
-	public constructor(@Inject(PlayerStore) private readonly store: BaseStore) {}
-
 	private readonly logger = new Logger(PlayerSaver.name);
+
+	public constructor(@Inject(PlayerStore) private readonly store: BaseStore) {}
 
 	public async savePlayerOnUpdate(oldPlayer: PlayerJson, newPlayer: Player): Promise<void> {
 		const newPlayerData = newPlayer.toJSON();
