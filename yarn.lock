@@ -1223,6 +1223,13 @@
   resolved "https://registry.yarnpkg.com/@npmcli/redact/-/redact-3.0.0.tgz#ab3b6413355be7f3c02e87c36c2b0c2f9773fce4"
   integrity sha512-/1uFzjVcfzqrgCeGW7+SZ4hv0qLWmKXVzFahZGJ6QuJBj6Myt9s17+JL86i76NV9YSnJRcGXJYQbAU0rn1YTCQ==
 
+"@nuxt/opencollective@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@nuxt/opencollective/-/opencollective-0.4.1.tgz#57bc41d2b03b2fba20b935c15950ac0f4bd2cea2"
+  integrity sha512-GXD3wy50qYbxCJ652bDrDzgMr3NFEkIS374+IgFQKkCvk9yiYcLvX2XDYr7UyQxf4wK0e+yqDYRubZ0DtOxnmQ==
+  dependencies:
+    consola "^3.2.3"
+
 "@nuxtjs/opencollective@0.3.2":
   version "0.3.2"
   resolved "https://registry.npmjs.org/@nuxtjs/opencollective/-/opencollective-0.3.2.tgz"
@@ -5054,10 +5061,11 @@ natural-compare@^1.4.0:
   integrity sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==
 
 necord@^6.8.6:
-  version "6.8.8"
-  resolved "https://registry.yarnpkg.com/necord/-/necord-6.8.8.tgz#7a5f4e914705938c60acb6ffa280f6458e18f729"
-  integrity sha512-IDJ/wedWZlc6ksXmLSAHx1F5V6jXtbJzpyQ1makTVgZ/OzC93ik7Y6tpXmqpIuIWH+jBdPLRDPAbh3QQFhvMMQ==
+  version "6.11.0"
+  resolved "https://registry.yarnpkg.com/necord/-/necord-6.11.0.tgz#f25c4b88c362f3872b0cb1783a5c6c4a1e17746f"
+  integrity sha512-jBQatX2GLJtpqJh/2GF3C1MP/ypH4TOL8ewlp3j5qklV2eoCo3gLIQD2v5xEKh9LPE4Bf7CG4dvgPCGUSXn73Q==
   dependencies:
+    "@nuxt/opencollective" "^0.4.1"
     path-to-regexp "8.2.0"
 
 negotiator@^0.6.3:
