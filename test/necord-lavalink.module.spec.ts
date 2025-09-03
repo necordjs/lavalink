@@ -76,7 +76,7 @@ describe('NecordLavalinkModule', () => {
 	});
 
 	it('should initialize LavalinkManager on client ready', async () => {
-		let readyHandler: () => void;
+		let readyHandler: () => void | Promise<void>;
 		let rawHandler: (data: any) => void;
 
 		mockClient.once.mockImplementationOnce((event, handler) => {

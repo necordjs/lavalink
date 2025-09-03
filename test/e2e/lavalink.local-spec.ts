@@ -12,4 +12,4 @@ export class LavalinkLocalSpec {
 	}
 }
 
-createApplication(LavalinkLocalSpec);
+void createApplication(LavalinkLocalSpec);
