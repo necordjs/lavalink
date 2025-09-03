@@ -2,6 +2,7 @@ import { Player, PlayerJson } from 'lavalink-client';
 import { BaseStore } from './base-store';
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { PlayerStore } from '../constants';
+import { normalize } from '../utils/normalize-json-object.util';
 
 @Injectable()
 export class PlayerSaver {
@@ -11,9 +12,6 @@ export class PlayerSaver {
 
 	public async savePlayerOnUpdate(oldPlayer: PlayerJson, newPlayer: Player): Promise<void> {
 		const newPlayerData = newPlayer.toJSON();
-		function normalize(obj: unknown) {
-			return JSON.stringify(obj, Object.keys(obj).sort());
-		}
 
 		if (!oldPlayer || normalize(oldPlayer) !== normalize(newPlayerData)) {
 			const id = this.transformId(newPlayerData.guildId);
