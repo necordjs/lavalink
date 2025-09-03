@@ -22,7 +22,7 @@ export class ResumingHandler {
 		private readonly lavalinkOptions: NecordLavalinkModuleOptions
 	) {}
 
-	private readonly logger = new Logger('ResumingHandler');
+	private readonly logger = new Logger(ResumingHandler.name);
 
 	public async resume() {
 		this.lavalinkManager.on('playerCreate', async player => {
