@@ -29,7 +29,7 @@ const Providers = Object.values(ProvidersMap);
 })
 export class NecordLavalinkModule
 	extends ConfigurableModuleClass
-	implements OnModuleInit, OnApplicationShutdown, OnApplicationBootstrap
+	implements OnModuleInit, OnApplicationShutdown
 {
 	private readonly logger = new Logger(NecordLavalinkModule.name);
 
@@ -38,8 +38,7 @@ export class NecordLavalinkModule
 		private readonly lavalinkManager: LavalinkManager,
 		private readonly nodeManager: NodeManager,
 		@Inject(LAVALINK_MODULE_OPTIONS)
-		private readonly options: NecordLavalinkModuleOptions,
-		private readonly resumingHandler: ResumingHandler
+		private readonly options: NecordLavalinkModuleOptions
 	) {
 		super();
 	}
@@ -52,12 +51,6 @@ export class NecordLavalinkModule
 				this.logger.log('Lavalink Manager Initialized');
 			})
 			.on('raw', data => this.lavalinkManager.sendRawData(data));
-	}
-
-	public async onApplicationBootstrap() {
-		if (this.options.autoResume) {
-			await this.resumingHandler.resume();
-		}
 	}
 
 	public onApplicationShutdown() {

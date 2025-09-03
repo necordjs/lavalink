@@ -1,4 +1,4 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable, Logger, OnApplicationBootstrap } from '@nestjs/common';
 import { LavalinkManager, NodeManager } from 'lavalink-client';
 import { PlayerManager } from './player-manager';
 import { Client } from 'discord.js';
@@ -9,7 +9,9 @@ import { BaseStore } from './base-store';
 import { PlayerSaver } from './player-saver';
 
 @Injectable()
-export class ResumingHandler {
+export class ResumingHandler implements OnApplicationBootstrap {
+	private readonly logger = new Logger(ResumingHandler.name);
+
 	public constructor(
 		private readonly nodeManager: NodeManager,
 		private readonly playerManager: PlayerManager,
@@ -22,9 +24,13 @@ export class ResumingHandler {
 		private readonly lavalinkOptions: NecordLavalinkModuleOptions
 	) {}
 
-	private readonly logger = new Logger(ResumingHandler.name);
+	public async onApplicationBootstrap() {
+		if (this.lavalinkOptions.autoResume) {
+			await this.resume();
+		}
+	}
 
-	public async resume() {
+	private async resume() {
 		this.lavalinkManager.on('playerCreate', async player => {
 			await this.playerSaver.savePlayerOnCreate(player);
 		});
