@@ -4603,12 +4603,12 @@ kleur@^3.0.3:
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
 
 lavalink-client@^2.4.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/lavalink-client/-/lavalink-client-2.5.0.tgz#6b3ad4429ddf4bf3a11d22289e77e97f000ba595"
-  integrity sha512-HWCnUKI8v5o2NeFjHOH/Yq+KI5h54Ra4XmUF223uoldhadGynHZS6ubleI9MYypsJ1jKyn2wLXMO1j7sPnGP7Q==
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/lavalink-client/-/lavalink-client-2.6.1.tgz#2a29c37f9b39c0f1c688d6014844b45cd574c393"
+  integrity sha512-1bHS79v8nkEi60JRsWNt9GgRzQzO0pzMCWISVp9ijP6YnDdEZfaPPJHcPonhaayIZEgCOTczJ6tk+IRw80tCOA==
   dependencies:
     tslib "^2.8.1"
-    ws "^8.18.0"
+    ws "^8.18.3"
 
 leven@^3.1.0:
   version "3.1.0"
@@ -6810,10 +6810,10 @@ write-file-atomic@^4.0.2:
     imurmurhash "^0.1.4"
     signal-exit "^3.0.7"
 
-ws@^8.17.0, ws@^8.18.0:
-  version "8.18.0"
-  resolved "https://registry.npmjs.org/ws/-/ws-8.18.0.tgz"
-  integrity sha512-8VbfWfHLbbwu3+N6OKsOMpBdT4kXPDDB9cJk2bJ6mh9ucxdlnNvH1e+roYkKmN9Nxw2yjz7VzeO9oOz2zJ04Pw==
+ws@^8.17.0, ws@^8.18.3:
+  version "8.18.3"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-8.18.3.tgz#b56b88abffde62791c639170400c93dcb0c95472"
+  integrity sha512-PEIGCY5tSlUt50cqyMXfCzX+oOPqN0vuGqWzbcJ2xvnkzkq46oOpz7dQaTDBdfICb4N14+GARUDw2XV2N4tvzg==
 
 y18n@^5.0.5:
   version "5.0.8"
