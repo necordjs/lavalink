@@ -3,14 +3,14 @@ import { LAVALINK_MODULE_OPTIONS } from '../necord-lavalink.module-definition';
 import { LavalinkManager, LavalinkNodeOptions, Player } from 'lavalink-client';
 import { NecordLavalinkModuleOptions } from '../necord-lavalink-options.interface';
 import { Client } from 'discord.js';
-import { PlayerSaver } from '../services';
+import { PlayerSaverService } from '../services';
 
 export const LavalinkManagerProvider: Provider<LavalinkManager> = {
 	provide: LavalinkManager,
 	useFactory: async <T extends Player>(
 		client: Client,
 		options: NecordLavalinkModuleOptions<T>,
-		playerSaver: PlayerSaver
+		playerSaver: PlayerSaverService
 	) => {
 		let nodes: LavalinkNodeOptions[] = options.nodes;
 
@@ -29,5 +29,5 @@ export const LavalinkManagerProvider: Provider<LavalinkManager> = {
 				client.guilds.cache.get(guildId)?.shard?.send(payload)
 		});
 	},
-	inject: [Client, LAVALINK_MODULE_OPTIONS, PlayerSaver]
+	inject: [Client, LAVALINK_MODULE_OPTIONS, PlayerSaverService]
 };

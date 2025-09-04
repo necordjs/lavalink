@@ -16,15 +16,21 @@ import {
 import { LavalinkListenersModule } from './listeners';
 import { NecordLavalinkModuleOptions } from './necord-lavalink-options.interface';
 import { NecordLavalinkService } from './necord-lavalink.service';
-import { PlayerManagerService } from './services';
+import { PlayerManagerService, PlayerSaverService } from './services';
 
 const Providers = Object.values(ProvidersMap);
 
 @Global()
 @Module({
 	imports: [LavalinkListenersModule],
-	providers: [NecordLavalinkService, PlayerManagerService, ...Providers],
-	exports: [NecordLavalinkService, ...Providers, LAVALINK_MODULE_OPTIONS]
+	providers: [NecordLavalinkService, PlayerManagerService, PlayerSaverService, ...Providers],
+	exports: [
+		NecordLavalinkService,
+		PlayerManagerService,
+		PlayerSaverService,
+		...Providers,
+		LAVALINK_MODULE_OPTIONS
+	]
 })
 export class NecordLavalinkModule
 	extends ConfigurableModuleClass
