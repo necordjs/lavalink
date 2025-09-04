@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PlayerSaver } from '../../src/helpers';
+import { PlayerSaver } from '../../src/services';
 import { PlayerSaverProvider } from '../../src/providers/player-saver.provider';
 import { PlayerStore } from '../../src/constants';
 import { Player } from 'lavalink-client';

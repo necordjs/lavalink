@@ -1,8 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ResumingHandler } from '../../src/helpers/handle-resuming';
+import { ResumingHandler, PlayerManager, PlayerSaver } from '../../src/services';
 import { LavalinkManager, NodeManager, Player } from 'lavalink-client';
-import { PlayerManager } from '../../src/helpers/player-manager';
-import { PlayerSaver } from '../../src/helpers/player-saver';
 import { Client } from 'discord.js';
 import { LAVALINK_MODULE_OPTIONS } from '../../src/necord-lavalink.module-definition';
 import { PlayerStore } from '../../src/constants';
