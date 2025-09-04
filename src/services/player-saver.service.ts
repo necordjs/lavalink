@@ -1,5 +1,5 @@
 import { Player, PlayerJson } from 'lavalink-client';
-import { BaseStore } from './base-store';
+import { BaseStore } from '../helpers/base-store';
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { PlayerStore } from '../constants';
 import { normalize } from '../utils/normalize-json-object.util';
