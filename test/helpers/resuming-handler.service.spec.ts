@@ -86,7 +86,7 @@ describe('ResumingHandler', () => {
 
 	describe('resume', () => {
 		it('should setup event listeners', async () => {
-			await resumingHandler.resume();
+			await resumingHandler['resume']();
 
 			expect(mockLavalinkManager.on).toHaveBeenCalledWith(
 				'playerCreate',
@@ -105,7 +105,7 @@ describe('ResumingHandler', () => {
 		});
 
 		it('should handle playerCreate event', async () => {
-			await resumingHandler.resume();
+			await resumingHandler['resume']();
 
 			const playerCreateHandler = mockLavalinkManager.on.mock.calls.find(
 				call => call[0] === 'playerCreate'
@@ -118,7 +118,7 @@ describe('ResumingHandler', () => {
 		});
 
 		it('should handle playerUpdate event', async () => {
-			await resumingHandler.resume();
+			await resumingHandler['resume']();
 
 			const playerUpdateHandler = mockLavalinkManager.on.mock.calls.find(
 				call => call[0] === 'playerUpdate'
@@ -132,7 +132,7 @@ describe('ResumingHandler', () => {
 		});
 
 		it('should handle playerDestroy event', async () => {
-			await resumingHandler.resume();
+			await resumingHandler['resume']();
 
 			const playerDestroyHandler = mockLavalinkManager.on.mock.calls.find(
 				call => call[0] === 'playerDestroy'
@@ -146,7 +146,7 @@ describe('ResumingHandler', () => {
 		});
 
 		it('should handle node connect event', async () => {
-			await resumingHandler.resume();
+			await resumingHandler['resume']();
 
 			const nodeConnectHandler = mockNodeManager.on.mock.calls.find(
 				call => call[0] === 'connect'
@@ -180,7 +180,7 @@ describe('ResumingHandler', () => {
 			}).compile();
 
 			resumingHandler = moduleRef.get<ResumingHandler>(ResumingHandler);
-			await resumingHandler.resume();
+			await resumingHandler['resume']();
 
 			const nodeConnectHandler = mockNodeManager.on.mock.calls.find(
 				call => call[0] === 'connect'
@@ -196,7 +196,7 @@ describe('ResumingHandler', () => {
 		});
 
 		it('should handle node resumed event with no players', async () => {
-			await resumingHandler.resume();
+			await resumingHandler['resume']();
 
 			const nodeResumedHandler = mockNodeManager.on.mock.calls.find(
 				call => call[0] === 'resumed'
@@ -212,7 +212,7 @@ describe('ResumingHandler', () => {
 		});
 
 		it('should handle node resumed event with empty players array', async () => {
-			await resumingHandler.resume();
+			await resumingHandler['resume']();
 
 			const nodeResumedHandler = mockNodeManager.on.mock.calls.find(
 				call => call[0] === 'resumed'
@@ -257,7 +257,7 @@ describe('ResumingHandler', () => {
 				}
 			});
 
-			await resumingHandler.resume();
+			await resumingHandler['resume']();
 
 			const nodeResumedHandler = mockNodeManager.on.mock.calls.find(
 				call => call[0] === 'resumed'
@@ -344,7 +344,7 @@ describe('ResumingHandler', () => {
 				}
 			});
 
-			await resumingHandler.resume();
+			await resumingHandler['resume']();
 
 			const nodeResumedHandler = mockNodeManager.on.mock.calls.find(
 				call => call[0] === 'resumed'
@@ -424,7 +424,7 @@ describe('ResumingHandler', () => {
 			}).compile();
 
 			resumingHandler = moduleRef.get<ResumingHandler>(ResumingHandler);
-			await resumingHandler.resume();
+			await resumingHandler['resume']();
 
 			const nodeResumedHandler = mockNodeManager.on.mock.calls.find(
 				call => call[0] === 'resumed'
@@ -494,7 +494,7 @@ describe('ResumingHandler', () => {
 				}
 			});
 
-			await resumingHandler.resume();
+			await resumingHandler['resume']();
 
 			const nodeResumedHandler = mockNodeManager.on.mock.calls.find(
 				call => call[0] === 'resumed'
