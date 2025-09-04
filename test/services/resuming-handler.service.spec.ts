@@ -1,13 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ResumingHandler, PlayerManager, PlayerSaver } from '../../src/services';
+import {
+	ResumingHandlerService,
+	PlayerManagerService,
+	PlayerSaverService
+} from '../../src/services';
 import { LavalinkManager, NodeManager, Player } from 'lavalink-client';
 import { Client } from 'discord.js';
 import { LAVALINK_MODULE_OPTIONS } from '../../src/necord-lavalink.module-definition';
 import { PlayerStore } from '../../src/constants';
 
-describe('ResumingHandler', () => {
+describe('ResumingHandlerService', () => {
 	let moduleRef: TestingModule;
-	let resumingHandler: ResumingHandler;
+	let resumingHandler: ResumingHandlerService;
 	let mockNodeManager: any;
 	let mockPlayerManager: any;
 	let mockLavalinkManager: any;
@@ -59,18 +63,18 @@ describe('ResumingHandler', () => {
 
 		moduleRef = await Test.createTestingModule({
 			providers: [
-				ResumingHandler,
+				ResumingHandlerService,
 				{ provide: NodeManager, useValue: mockNodeManager },
-				{ provide: PlayerManager, useValue: mockPlayerManager },
+				{ provide: PlayerManagerService, useValue: mockPlayerManager },
 				{ provide: LavalinkManager, useValue: mockLavalinkManager },
 				{ provide: Client, useValue: mockClient },
-				{ provide: PlayerSaver, useValue: mockPlayerSaver },
+				{ provide: PlayerSaverService, useValue: mockPlayerSaver },
 				{ provide: PlayerStore, useValue: mockStore },
 				{ provide: LAVALINK_MODULE_OPTIONS, useValue: mockOptions }
 			]
 		}).compile();
 
-		resumingHandler = moduleRef.get<ResumingHandler>(ResumingHandler);
+		resumingHandler = moduleRef.get<ResumingHandlerService>(ResumingHandlerService);
 	});
 
 	afterEach(async () => {
@@ -168,18 +172,18 @@ describe('ResumingHandler', () => {
 
 			moduleRef = await Test.createTestingModule({
 				providers: [
-					ResumingHandler,
+					ResumingHandlerService,
 					{ provide: NodeManager, useValue: mockNodeManager },
-					{ provide: PlayerManager, useValue: mockPlayerManager },
+					{ provide: PlayerManagerService, useValue: mockPlayerManager },
 					{ provide: LavalinkManager, useValue: mockLavalinkManager },
 					{ provide: Client, useValue: mockClient },
-					{ provide: PlayerSaver, useValue: mockPlayerSaver },
+					{ provide: PlayerSaverService, useValue: mockPlayerSaver },
 					{ provide: PlayerStore, useValue: mockStore },
 					{ provide: LAVALINK_MODULE_OPTIONS, useValue: optionsWithoutTimer }
 				]
 			}).compile();
 
-			resumingHandler = moduleRef.get<ResumingHandler>(ResumingHandler);
+			resumingHandler = moduleRef.get<ResumingHandlerService>(ResumingHandlerService);
 			await resumingHandler['resume']();
 
 			const nodeConnectHandler = mockNodeManager.on.mock.calls.find(
@@ -412,18 +416,18 @@ describe('ResumingHandler', () => {
 
 			moduleRef = await Test.createTestingModule({
 				providers: [
-					ResumingHandler,
+					ResumingHandlerService,
 					{ provide: NodeManager, useValue: mockNodeManager },
-					{ provide: PlayerManager, useValue: mockPlayerManager },
+					{ provide: PlayerManagerService, useValue: mockPlayerManager },
 					{ provide: LavalinkManager, useValue: mockLavalinkManager },
 					{ provide: Client, useValue: mockClient },
-					{ provide: PlayerSaver, useValue: mockPlayerSaver },
+					{ provide: PlayerSaverService, useValue: mockPlayerSaver },
 					{ provide: PlayerStore, useValue: mockStore },
 					{ provide: LAVALINK_MODULE_OPTIONS, useValue: optionsWithDecrementer }
 				]
 			}).compile();
 
-			resumingHandler = moduleRef.get<ResumingHandler>(ResumingHandler);
+			resumingHandler = moduleRef.get<ResumingHandlerService>(ResumingHandlerService);
 			await resumingHandler['resume']();
 
 			const nodeResumedHandler = mockNodeManager.on.mock.calls.find(

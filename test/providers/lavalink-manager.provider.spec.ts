@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { LavalinkManager } from 'lavalink-client';
 import { Client } from 'discord.js';
 import { LavalinkManagerProvider } from '../../src/providers/lavalink-manager.provider';
-import { LAVALINK_MODULE_OPTIONS, PlayerSaver } from '../../src';
+import { LAVALINK_MODULE_OPTIONS, PlayerSaverService } from '../../src';
 
 describe('LavalinkManagerProvider', () => {
 	let moduleRef: TestingModule;
@@ -49,7 +49,7 @@ describe('LavalinkManagerProvider', () => {
 				LavalinkManagerProvider,
 				{ provide: Client, useValue: mockClient },
 				{ provide: LAVALINK_MODULE_OPTIONS, useValue: mockOptions },
-				{ provide: PlayerSaver, useValue: mockPlayerSaver }
+				{ provide: PlayerSaverService, useValue: mockPlayerSaver }
 			]
 		}).compile();
 
@@ -81,7 +81,7 @@ describe('LavalinkManagerProvider', () => {
 				LavalinkManagerProvider,
 				{ provide: Client, useValue: mockClient },
 				{ provide: LAVALINK_MODULE_OPTIONS, useValue: mockOptions },
-				{ provide: PlayerSaver, useValue: mockPlayerSaver }
+				{ provide: PlayerSaverService, useValue: mockPlayerSaver }
 			]
 		}).compile();
 
@@ -113,7 +113,7 @@ describe('LavalinkManagerProvider', () => {
 				LavalinkManagerProvider,
 				{ provide: Client, useValue: mockClient },
 				{ provide: LAVALINK_MODULE_OPTIONS, useValue: mockOptions },
-				{ provide: PlayerSaver, useValue: mockPlayerSaver }
+				{ provide: PlayerSaverService, useValue: mockPlayerSaver }
 			]
 		}).compile();
 
@@ -154,7 +154,7 @@ describe('LavalinkManagerProvider', () => {
 				LavalinkManagerProvider,
 				{ provide: Client, useValue: mockClient },
 				{ provide: LAVALINK_MODULE_OPTIONS, useValue: mockOptions },
-				{ provide: PlayerSaver, useValue: mockPlayerSaver }
+				{ provide: PlayerSaverService, useValue: mockPlayerSaver }
 			]
 		}).compile();
 
@@ -183,7 +183,7 @@ describe('LavalinkManagerProvider', () => {
 					LavalinkManagerProvider,
 					{ provide: Client, useValue: mockClient },
 					{ provide: LAVALINK_MODULE_OPTIONS, useValue: mockOptions },
-					{ provide: PlayerSaver, useValue: mockPlayerSaver }
+					{ provide: PlayerSaverService, useValue: mockPlayerSaver }
 				]
 			}).compile();
 		} catch (error) {

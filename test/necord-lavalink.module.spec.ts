@@ -5,7 +5,7 @@ import {
 	NecordLavalinkModuleOptions,
 	NecordLavalinkModule,
 	LAVALINK_MODULE_OPTIONS,
-	ResumingHandler
+	ResumingHandlerService
 } from '../src';
 
 describe('NecordLavalinkModule', () => {
@@ -76,7 +76,7 @@ describe('NecordLavalinkModule', () => {
 					useValue: mockOptions
 				},
 				{
-					provide: ResumingHandler,
+					provide: ResumingHandlerService,
 					useValue: mockResumingHandler
 				}
 			]
@@ -182,7 +182,7 @@ describe('NecordLavalinkModule', () => {
 					useValue: customOptions
 				},
 				{
-					provide: ResumingHandler,
+					provide: ResumingHandlerService,
 					useValue: mockResumingHandler
 				}
 			]

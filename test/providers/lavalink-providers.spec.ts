@@ -1,14 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import {
-	PlayerManager,
-	PlayerSaver,
-	LAVALINK_MODULE_OPTIONS,
-	LavalinkManagerProvider,
-	LavalinkUtilsProvider,
-	LavalinkNodeManagerProvider,
-	PlayerSaverProvider,
-	PlayerStoreProvider
-} from '../../src';
+import { PlayerManagerService, PlayerSaverService, LAVALINK_MODULE_OPTIONS } from '../../src';
 import { LavalinkManager, ManagerUtils, NodeManager } from 'lavalink-client';
 import { Client } from 'discord.js';
 import { PlayerStore } from '../../src/constants';
@@ -66,8 +57,8 @@ describe('Lavalink Providers', () => {
 				{ provide: ManagerUtils, useValue: mockLavalink.utils },
 				{ provide: LavalinkManager, useValue: mockLavalink.lavalinkManager },
 				{ provide: NodeManager, useValue: mockLavalink.nodeManager },
-				{ provide: PlayerManager, useValue: mockLavalink.playerManager },
-				{ provide: PlayerSaver, useValue: mockLavalink.playerSaver },
+				{ provide: PlayerManagerService, useValue: mockLavalink.playerManager },
+				{ provide: PlayerSaverService, useValue: mockLavalink.playerSaver },
 				{ provide: PlayerStore, useValue: mockPlayerStore },
 				{ provide: Client, useValue: mockClient },
 				{ provide: LAVALINK_MODULE_OPTIONS, useValue: mockOptions }
@@ -95,12 +86,12 @@ describe('Lavalink Providers', () => {
 	});
 
 	it('should provide the PlayerManager instance from Lavalink', () => {
-		const playerManager = moduleRef.get<PlayerManager>(PlayerManager);
+		const playerManager = moduleRef.get<PlayerManagerService>(PlayerManagerService);
 		expect(playerManager).toBe(mockLavalink.playerManager);
 	});
 
 	it('should provide the PlayerSaver instance', () => {
-		const playerSaver = moduleRef.get<PlayerSaver>(PlayerSaver);
+		const playerSaver = moduleRef.get<PlayerSaverService>(PlayerSaverService);
 		expect(playerSaver).toBe(mockLavalink.playerSaver);
 	});
 
