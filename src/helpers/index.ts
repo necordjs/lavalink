@@ -1,1 +1,1 @@
-export * from './player-manager';
+export * from './base-store';

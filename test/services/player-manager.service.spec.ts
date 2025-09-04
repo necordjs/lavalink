@@ -1,7 +1,7 @@
-import { PlayerManager } from '../../src';
+import { PlayerManagerService } from '../../src';
 
-describe('PlayerManager', () => {
-	let playerManager: PlayerManager;
+describe('PlayerManagerService', () => {
+	let playerManager: PlayerManagerService;
 	const lavalinkManagerMock = {
 		getPlayer: jest.fn(),
 		createPlayer: jest.fn(),
@@ -10,7 +10,7 @@ describe('PlayerManager', () => {
 	};
 
 	beforeEach(() => {
-		playerManager = new PlayerManager(lavalinkManagerMock as any);
+		playerManager = new PlayerManagerService(lavalinkManagerMock as any);
 	});
 
 	afterEach(() => {

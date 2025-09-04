@@ -2,7 +2,7 @@ import { DestroyReasonsType, LavalinkManager, Player, PlayerOptions } from 'lava
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class PlayerManager {
+export class PlayerManagerService {
 	public constructor(private readonly lavalinkManager: LavalinkManager) {}
 
 	public get(guildId: string) {

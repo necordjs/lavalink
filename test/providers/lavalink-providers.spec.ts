@@ -1,20 +1,23 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import {
-	LavalinkUtilsProvider,
-	LavalinkManagerProvider,
-	LavalinkNodeManagerProvider,
-	PlayerManager,
-	LAVALINK_MODULE_OPTIONS
-} from '../../src';
+import { PlayerManagerService, PlayerSaverService, LAVALINK_MODULE_OPTIONS } from '../../src';
 import { LavalinkManager, ManagerUtils, NodeManager } from 'lavalink-client';
 import { Client } from 'discord.js';
+import { PlayerStore } from '../../src/constants';
 
 describe('Lavalink Providers', () => {
 	const mockLavalink = {
 		utils: Symbol('utils'),
 		lavalinkManager: Symbol('lavalinkManager'),
 		nodeManager: Symbol('nodeManager'),
-		playerManager: Symbol('playerManager')
+		playerManager: Symbol('playerManager'),
+		playerSaver: Symbol('playerSaver')
+	};
+
+	const mockPlayerStore = {
+		get: jest.fn(),
+		save: jest.fn(),
+		delete: jest.fn(),
+		getAll: jest.fn().mockResolvedValue([])
 	};
 
 	const mockClient = {
@@ -38,9 +41,12 @@ describe('Lavalink Providers', () => {
 				id: '1',
 				host: 'localhost',
 				port: 2333,
-				password: 'youshallnotpass'
+				authorization: 'youshallnotpass'
 			}
-		]
+		],
+		autoResume: {
+			playerStore: mockPlayerStore
+		}
 	};
 
 	let moduleRef: TestingModule;
@@ -51,11 +57,17 @@ describe('Lavalink Providers', () => {
 				{ provide: ManagerUtils, useValue: mockLavalink.utils },
 				{ provide: LavalinkManager, useValue: mockLavalink.lavalinkManager },
 				{ provide: NodeManager, useValue: mockLavalink.nodeManager },
-				{ provide: PlayerManager, useValue: mockLavalink.playerManager },
+				{ provide: PlayerManagerService, useValue: mockLavalink.playerManager },
+				{ provide: PlayerSaverService, useValue: mockLavalink.playerSaver },
+				{ provide: PlayerStore, useValue: mockPlayerStore },
 				{ provide: Client, useValue: mockClient },
 				{ provide: LAVALINK_MODULE_OPTIONS, useValue: mockOptions }
 			]
 		}).compile();
+	});
+
+	afterAll(async () => {
+		await moduleRef.close();
 	});
 
 	it('should provide the LavalinkUtils instance from Lavalink', () => {
@@ -74,7 +86,17 @@ describe('Lavalink Providers', () => {
 	});
 
 	it('should provide the PlayerManager instance from Lavalink', () => {
-		const playerManager = moduleRef.get<PlayerManager>(PlayerManager);
+		const playerManager = moduleRef.get<PlayerManagerService>(PlayerManagerService);
 		expect(playerManager).toBe(mockLavalink.playerManager);
+	});
+
+	it('should provide the PlayerSaver instance', () => {
+		const playerSaver = moduleRef.get<PlayerSaverService>(PlayerSaverService);
+		expect(playerSaver).toBe(mockLavalink.playerSaver);
+	});
+
+	it('should provide the PlayerStore instance', () => {
+		const playerStore = moduleRef.get(PlayerStore);
+		expect(playerStore).toBe(mockPlayerStore);
 	});
 });
