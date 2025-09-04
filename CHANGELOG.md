@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.2.0](https://github.com/necordjs/lavalink/compare/1.1.6...1.2.0) (2025-09-04)
+
+### Features
+
+* add resuming handler ([#354](https://github.com/necordjs/lavalink/issues/354)) ([7ac8042](https://github.com/necordjs/lavalink/commit/7ac80426580b00b0dd85ac1a0fba85b72f66d991))
+
+### Refactor
+
+* return player saver service test and rename utility ([afc553c](https://github.com/necordjs/lavalink/commit/afc553c36c2ba110612f159184dd0e03502222dc))
+
+### Styling
+
+* lint ([2d775a2](https://github.com/necordjs/lavalink/commit/2d775a24dc0dc9677ae460511a399ffe7e7a784a))
+
 ## [1.1.6](https://github.com/necordjs/lavalink/compare/1.1.5...1.1.6) (2025-09-02)
 
 ### Features
