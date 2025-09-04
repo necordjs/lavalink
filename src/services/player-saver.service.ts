@@ -5,8 +5,8 @@ import { PlayerStore } from '../constants';
 import { normalize } from '../utils/normalize-json-object.util';
 
 @Injectable()
-export class PlayerSaver {
-	private readonly logger = new Logger(PlayerSaver.name);
+export class PlayerSaverService {
+	private readonly logger = new Logger(PlayerSaverService.name);
 
 	public constructor(@Inject(PlayerStore) private readonly store: BaseStore) {}
 
