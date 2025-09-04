@@ -44,7 +44,8 @@ export class ResumingHandlerService implements OnApplicationBootstrap {
 		});
 
 		this.nodeManager.on('connect', async node => {
-			await node.updateSession(true, this.lavalinkOptions.autoResume.timer ?? 360e3);
+			const TIME_TO_RESUME = this.lavalinkOptions.autoResume?.timer ?? 60 * 6 * 1000;
+			await node.updateSession(true, TIME_TO_RESUME);
 		});
 
 		this.nodeManager.on('resumed', async (node, payload, players) => {
