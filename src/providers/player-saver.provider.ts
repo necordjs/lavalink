@@ -1,5 +1,6 @@
+import { BaseStore } from '../helpers';
 import { PlayerStore } from '../constants';
-import { BaseStore, PlayerSaver } from '../helpers';
+import { PlayerSaver } from '../services';
 
 export const PlayerSaverProvider = {
 	provide: PlayerSaver,

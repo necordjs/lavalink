@@ -3,7 +3,7 @@ import { LAVALINK_MODULE_OPTIONS } from '../necord-lavalink.module-definition';
 import { LavalinkManager, LavalinkNodeOptions, Player } from 'lavalink-client';
 import { NecordLavalinkModuleOptions } from '../necord-lavalink-options.interface';
 import { Client } from 'discord.js';
-import { PlayerSaver } from '../helpers';
+import { PlayerSaver } from '../services';
 
 export const LavalinkManagerProvider: Provider<LavalinkManager> = {
 	provide: LavalinkManager,
