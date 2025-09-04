@@ -3,7 +3,6 @@ import {
 	Inject,
 	Logger,
 	Module,
-	OnApplicationBootstrap,
 	OnApplicationShutdown,
 	OnModuleInit
 } from '@nestjs/common';
@@ -17,7 +16,7 @@ import {
 import { LavalinkListenersModule } from './listeners';
 import { NecordLavalinkModuleOptions } from './necord-lavalink-options.interface';
 import { NecordLavalinkService } from './necord-lavalink.service';
-import { PlayerSaver, ResumingHandler } from './helpers';
+import { PlayerSaver } from './services';
 
 const Providers = Object.values(ProvidersMap);
 
