@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.1](https://github.com/necordjs/lavalink/compare/1.2.0...1.2.1) (2025-09-05)
+
+### Bug Fixes
+
+* import service ([#369](https://github.com/necordjs/lavalink/issues/369)) ([46bfd47](https://github.com/necordjs/lavalink/commit/46bfd4757641c351c2a7af60cbdc395e656de7bf))
+
 ## [1.2.0](https://github.com/necordjs/lavalink/compare/1.1.6...1.2.0) (2025-09-04)
 
 ### Features
