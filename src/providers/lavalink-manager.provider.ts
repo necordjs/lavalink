@@ -18,7 +18,7 @@ export const LavalinkManagerProvider: Provider<LavalinkManager> = {
 			const sessions = await playerSaver.getSessions();
 			nodes = options.nodes?.map(node => ({
 				...node,
-				session: sessions.get(node.id)
+				sessionId: sessions.get(node.id)
 			}));
 		}
 
