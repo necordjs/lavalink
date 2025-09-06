@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.2](https://github.com/necordjs/lavalink/compare/1.2.1...1.2.2) (2025-09-06)
+
+### Bug Fixes
+
+* session assignment in Lavalink manager ([#376](https://github.com/necordjs/lavalink/issues/376)) ([2f5d3a9](https://github.com/necordjs/lavalink/commit/2f5d3a95ccdde3500dcf44013b53f5d8bc949947))
+
 ## [1.2.1](https://github.com/necordjs/lavalink/compare/1.2.0...1.2.1) (2025-09-05)
 
 ### Bug Fixes
