@@ -54,12 +54,29 @@ export class NecordLavalinkModule
 	}
 
 	public onApplicationShutdown() {
-		this.logger.log('Shutting down Necord Lavalink Module');
-		this.lavalinkManager.removeAllListeners();
-		this.lavalinkManager.players.forEach(player => player.destroy(DestroyReasons.Disconnected));
+		if (this.options.onApplicationShutdown) {
+			this.logger.log('Shutting down Necord Lavalink Module');
 
-		this.nodeManager.removeAllListeners();
-		this.nodeManager.nodes.forEach(node => node.destroy(DestroyReasons.NodeDestroy));
+			if (
+				this.options.autoResume &&
+				(this.options.onApplicationShutdown.destroyPlayers ||
+					this.options.onApplicationShutdown.destroyNodes)
+			) {
+				this.logger.warn(
+					'Using autoResume and onApplicationShutdown with destructive shutdown options (destroyPlayers or destroyNodes) can cause issues to resume players'
+				);
+			}
+		}
+
+		if (this.options.onApplicationShutdown?.destroyPlayers) {
+			this.logger.log('Destroying all players');
+			this.lavalinkManager.players.forEach(player => player.destroy('ApplicationShutdown'));
+		}
+
+		if (this.options.onApplicationShutdown?.destroyNodes) {
+			this.logger.log('Destroying all nodes');
+			this.nodeManager.nodes.forEach(node => node.destroy('ApplicationShutdown'));
+		}
 	}
 
 	private getClientOptions(): BotClientOptions {

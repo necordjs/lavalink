@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { DestroyReasons, LavalinkManager, NodeManager } from 'lavalink-client';
+import { LavalinkManager, NodeManager } from 'lavalink-client';
 import { Client } from 'discord.js';
 import {
 	NecordLavalinkModuleOptions,
@@ -31,12 +31,18 @@ describe('NecordLavalinkModule', () => {
 			init: jest.fn(),
 			sendRawData: jest.fn(),
 			removeAllListeners: jest.fn(),
-			players: [{ destroy: jest.fn() }, { destroy: jest.fn() }]
+			players: new Map([
+				['player1', { destroy: jest.fn() }],
+				['player2', { destroy: jest.fn() }]
+			])
 		};
 
 		mockNodeManager = {
 			removeAllListeners: jest.fn(),
-			nodes: [{ destroy: jest.fn() }, { destroy: jest.fn() }]
+			nodes: new Map([
+				['node1', { destroy: jest.fn() }],
+				['node2', { destroy: jest.fn() }]
+			])
 		};
 
 		mockResumingHandler = {
@@ -53,7 +59,11 @@ describe('NecordLavalinkModule', () => {
 					authorization: 'youshallnotpass',
 					secure: false
 				}
-			]
+			],
+			onApplicationShutdown: {
+				destroyPlayers: true,
+				destroyNodes: true
+			}
 		};
 
 		moduleRef = await Test.createTestingModule({
@@ -138,14 +148,12 @@ describe('NecordLavalinkModule', () => {
 	it('should remove listeners and destroy players/nodes on shutdown', () => {
 		module.onApplicationShutdown();
 
-		expect(mockLavalinkManager.removeAllListeners).toHaveBeenCalled();
 		mockLavalinkManager.players.forEach(player =>
-			expect(player.destroy).toHaveBeenCalledWith(DestroyReasons.Disconnected)
+			expect(player.destroy).toHaveBeenCalledWith('ApplicationShutdown')
 		);
 
-		expect(mockNodeManager.removeAllListeners).toHaveBeenCalled();
 		mockNodeManager.nodes.forEach(node =>
-			expect(node.destroy).toHaveBeenCalledWith(DestroyReasons.NodeDestroy)
+			expect(node.destroy).toHaveBeenCalledWith('ApplicationShutdown')
 		);
 	});
 
