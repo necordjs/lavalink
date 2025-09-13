@@ -59,7 +59,8 @@ export class NecordLavalinkModule
 
 			if (
 				this.options.autoResume &&
-				(this.options.onApplicationShutdown.destroyPlayers || this.options.onApplicationShutdown.destroyNodes)
+				(this.options.onApplicationShutdown.destroyPlayers ||
+					this.options.onApplicationShutdown.destroyNodes)
 			) {
 				this.logger.warn(
 					'Using autoResume and onApplicationShutdown with destructive shutdown options (destroyPlayers or destroyNodes) can cause issues to resume players'
