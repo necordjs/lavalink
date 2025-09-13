@@ -1,15 +1,15 @@
 import { Provider } from '@nestjs/common';
 import { LAVALINK_MODULE_OPTIONS } from '../necord-lavalink.module-definition';
-import { LavalinkManager, LavalinkNodeOptions, Player } from 'lavalink-client';
+import { LavalinkManager, LavalinkNodeOptions } from 'lavalink-client';
 import { NecordLavalinkModuleOptions } from '../necord-lavalink-options.interface';
 import { Client } from 'discord.js';
 import { PlayerSaverService } from '../services';
 
 export const LavalinkManagerProvider: Provider<LavalinkManager> = {
 	provide: LavalinkManager,
-	useFactory: async <T extends Player>(
+	useFactory: async (
 		client: Client,
-		options: NecordLavalinkModuleOptions<T>,
+		options: NecordLavalinkModuleOptions,
 		playerSaver: PlayerSaverService
 	) => {
 		let nodes: LavalinkNodeOptions[] = options.nodes;
