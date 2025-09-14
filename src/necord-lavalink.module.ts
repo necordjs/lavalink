@@ -7,7 +7,7 @@ import {
 	OnModuleInit
 } from '@nestjs/common';
 import * as ProvidersMap from './providers';
-import { BotClientOptions, DestroyReasons, LavalinkManager, NodeManager } from 'lavalink-client';
+import { BotClientOptions, LavalinkManager, NodeManager } from 'lavalink-client';
 import { Client } from 'discord.js';
 import {
 	ConfigurableModuleClass,

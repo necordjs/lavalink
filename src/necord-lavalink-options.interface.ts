@@ -10,5 +10,6 @@ export interface NecordLavalinkModuleOptions extends Omit<ManagerOptions, 'sendT
 	autoResume?: {
 		playerStore: BaseStore;
 		timer?: number;
+		autoSyncQueue?: boolean;
 	};
 }
