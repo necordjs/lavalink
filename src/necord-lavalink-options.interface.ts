@@ -3,7 +3,7 @@ import { BaseStore } from './helpers';
 
 export interface NecordLavalinkModuleOptions extends Omit<ManagerOptions, 'sendToShard'> {
 	sendToShard?: ManagerOptions['sendToShard'];
-	onApplicationShutdown?: {
+	gracefulShutdown?: {
 		destroyPlayers?: boolean;
 		destroyNodes?: boolean;
 	};
