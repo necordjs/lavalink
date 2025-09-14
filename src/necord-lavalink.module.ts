@@ -54,13 +54,13 @@ export class NecordLavalinkModule
 	}
 
 	public onApplicationShutdown() {
-		if (this.options.onApplicationShutdown) {
+		if (this.options.gracefulShutdown) {
 			this.logger.log('Shutting down Necord Lavalink Module');
 
 			if (
 				this.options.autoResume &&
-				(this.options.onApplicationShutdown.destroyPlayers ||
-					this.options.onApplicationShutdown.destroyNodes)
+				(this.options.gracefulShutdown.destroyPlayers ||
+					this.options.gracefulShutdown.destroyNodes)
 			) {
 				this.logger.warn(
 					'Using autoResume and onApplicationShutdown with destructive shutdown options (destroyPlayers or destroyNodes) can cause issues to resume players'
@@ -68,12 +68,12 @@ export class NecordLavalinkModule
 			}
 		}
 
-		if (this.options.onApplicationShutdown?.destroyPlayers) {
+		if (this.options.gracefulShutdown?.destroyPlayers) {
 			this.logger.log('Destroying all players');
 			this.lavalinkManager.players.forEach(player => player.destroy('ApplicationShutdown'));
 		}
 
-		if (this.options.onApplicationShutdown?.destroyNodes) {
+		if (this.options.gracefulShutdown?.destroyNodes) {
 			this.logger.log('Destroying all nodes');
 			this.nodeManager.nodes.forEach(node => node.destroy('ApplicationShutdown'));
 		}
