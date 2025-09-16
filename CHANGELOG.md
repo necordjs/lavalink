@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.3.0](https://github.com/necordjs/lavalink/compare/1.2.2...1.3.0) (2025-09-16)
+
+### Features
+
+* add options to control onApplicationShutdown hook ([#389](https://github.com/necordjs/lavalink/issues/389)) ([a149fd8](https://github.com/necordjs/lavalink/commit/a149fd84189cd5c568d0c245e1985b6867f62573))
+
 ## [1.2.2](https://github.com/necordjs/lavalink/compare/1.2.1...1.2.2) (2025-09-06)
 
 ### Bug Fixes
