@@ -41,6 +41,11 @@ export class NecordLavalinkModule
 		private readonly options: NecordLavalinkModuleOptions
 	) {
 		super();
+
+		this.options.gracefulShutdown = {
+			destroyPlayers: this.options.gracefulShutdown?.destroyPlayers ?? true,
+			destroyNodes: this.options.gracefulShutdown?.destroyNodes ?? true
+		};
 	}
 
 	public onModuleInit() {
