@@ -85,7 +85,9 @@ export class ResumingHandlerService implements OnApplicationBootstrap {
 				await player.connect();
 
 				player.filterManager.data = playerData.filters;
-				await player.queue.utils.sync(true, false).catch(console.warn);
+				if (this.lavalinkOptions.autoResume?.autoSyncQueue) {
+					await player.queue.utils.sync(true, false).catch(console.warn);
+				}
 				if (playerData.track)
 					player.queue.current = this.lavalinkManager.utils.buildTrack(
 						playerData.track,

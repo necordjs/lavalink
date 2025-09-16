@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { DestroyReasons, LavalinkManager, NodeManager } from 'lavalink-client';
+import { LavalinkManager, NodeManager } from 'lavalink-client';
 import { Client } from 'discord.js';
 import {
 	NecordLavalinkModuleOptions,
@@ -31,12 +31,18 @@ describe('NecordLavalinkModule', () => {
 			init: jest.fn(),
 			sendRawData: jest.fn(),
 			removeAllListeners: jest.fn(),
-			players: [{ destroy: jest.fn() }, { destroy: jest.fn() }]
+			players: new Map([
+				['player1', { destroy: jest.fn() }],
+				['player2', { destroy: jest.fn() }]
+			])
 		};
 
 		mockNodeManager = {
 			removeAllListeners: jest.fn(),
-			nodes: [{ destroy: jest.fn() }, { destroy: jest.fn() }]
+			nodes: new Map([
+				['node1', { destroy: jest.fn() }],
+				['node2', { destroy: jest.fn() }]
+			])
 		};
 
 		mockResumingHandler = {
@@ -53,7 +59,11 @@ describe('NecordLavalinkModule', () => {
 					authorization: 'youshallnotpass',
 					secure: false
 				}
-			]
+			],
+			gracefulShutdown: {
+				destroyPlayers: true,
+				destroyNodes: true
+			}
 		};
 
 		moduleRef = await Test.createTestingModule({
@@ -138,15 +148,171 @@ describe('NecordLavalinkModule', () => {
 	it('should remove listeners and destroy players/nodes on shutdown', () => {
 		module.onApplicationShutdown();
 
-		expect(mockLavalinkManager.removeAllListeners).toHaveBeenCalled();
 		mockLavalinkManager.players.forEach(player =>
-			expect(player.destroy).toHaveBeenCalledWith(DestroyReasons.Disconnected)
+			expect(player.destroy).toHaveBeenCalledWith('ApplicationShutdown')
 		);
 
-		expect(mockNodeManager.removeAllListeners).toHaveBeenCalled();
 		mockNodeManager.nodes.forEach(node =>
-			expect(node.destroy).toHaveBeenCalledWith(DestroyReasons.NodeDestroy)
+			expect(node.destroy).toHaveBeenCalledWith('ApplicationShutdown')
 		);
+	});
+
+	it('should not destroy players when destroyPlayers is false', async () => {
+		const optionsWithoutDestroyPlayers = {
+			client: undefined,
+			nodes: mockOptions.nodes,
+			gracefulShutdown: {
+				destroyPlayers: false,
+				destroyNodes: true
+			}
+		};
+
+		const customModuleRef = await Test.createTestingModule({
+			providers: [
+				NecordLavalinkModule,
+				{
+					provide: Client,
+					useValue: mockClient
+				},
+				{
+					provide: LavalinkManager,
+					useValue: mockLavalinkManager
+				},
+				{
+					provide: NodeManager,
+					useValue: mockNodeManager
+				},
+				{
+					provide: LAVALINK_MODULE_OPTIONS,
+					useValue: optionsWithoutDestroyPlayers
+				},
+				{
+					provide: ResumingHandlerService,
+					useValue: mockResumingHandler
+				}
+			]
+		}).compile();
+
+		const customModule = customModuleRef.get<NecordLavalinkModule>(NecordLavalinkModule);
+
+		mockLavalinkManager.players.forEach(player => player.destroy.mockClear());
+		mockNodeManager.nodes.forEach(node => node.destroy.mockClear());
+
+		customModule.onApplicationShutdown();
+
+		mockLavalinkManager.players.forEach(player =>
+			expect(player.destroy).not.toHaveBeenCalled()
+		);
+
+		mockNodeManager.nodes.forEach(node =>
+			expect(node.destroy).toHaveBeenCalledWith('ApplicationShutdown')
+		);
+
+		await customModuleRef.close();
+	});
+
+	it('should not destroy nodes when destroyNodes is false', async () => {
+		const optionsWithoutDestroyNodes = {
+			client: undefined,
+			nodes: mockOptions.nodes,
+			gracefulShutdown: {
+				destroyPlayers: true,
+				destroyNodes: false
+			}
+		};
+
+		const customModuleRef = await Test.createTestingModule({
+			providers: [
+				NecordLavalinkModule,
+				{
+					provide: Client,
+					useValue: mockClient
+				},
+				{
+					provide: LavalinkManager,
+					useValue: mockLavalinkManager
+				},
+				{
+					provide: NodeManager,
+					useValue: mockNodeManager
+				},
+				{
+					provide: LAVALINK_MODULE_OPTIONS,
+					useValue: optionsWithoutDestroyNodes
+				},
+				{
+					provide: ResumingHandlerService,
+					useValue: mockResumingHandler
+				}
+			]
+		}).compile();
+
+		const customModule = customModuleRef.get<NecordLavalinkModule>(NecordLavalinkModule);
+
+		mockLavalinkManager.players.forEach(player => player.destroy.mockClear());
+		mockNodeManager.nodes.forEach(node => node.destroy.mockClear());
+
+		customModule.onApplicationShutdown();
+
+		mockLavalinkManager.players.forEach(player =>
+			expect(player.destroy).toHaveBeenCalledWith('ApplicationShutdown')
+		);
+
+		mockNodeManager.nodes.forEach(node => expect(node.destroy).not.toHaveBeenCalled());
+
+		await customModuleRef.close();
+	});
+
+	it('should not destroy players or nodes when both options are false', async () => {
+		const optionsWithoutDestroy = {
+			client: undefined,
+			nodes: mockOptions.nodes,
+			gracefulShutdown: {
+				destroyPlayers: false,
+				destroyNodes: false
+			}
+		};
+
+		const customModuleRef = await Test.createTestingModule({
+			providers: [
+				NecordLavalinkModule,
+				{
+					provide: Client,
+					useValue: mockClient
+				},
+				{
+					provide: LavalinkManager,
+					useValue: mockLavalinkManager
+				},
+				{
+					provide: NodeManager,
+					useValue: mockNodeManager
+				},
+				{
+					provide: LAVALINK_MODULE_OPTIONS,
+					useValue: optionsWithoutDestroy
+				},
+				{
+					provide: ResumingHandlerService,
+					useValue: mockResumingHandler
+				}
+			]
+		}).compile();
+
+		const customModule = customModuleRef.get<NecordLavalinkModule>(NecordLavalinkModule);
+
+		mockLavalinkManager.players.forEach(player => player.destroy.mockClear());
+		mockNodeManager.nodes.forEach(node => node.destroy.mockClear());
+
+		customModule.onApplicationShutdown();
+
+		mockLavalinkManager.players.forEach(player =>
+			expect(player.destroy).not.toHaveBeenCalled()
+		);
+
+		mockNodeManager.nodes.forEach(node => expect(node.destroy).not.toHaveBeenCalled());
+
+		await customModuleRef.close();
 	});
 
 	it('getClientOptions should return default client info if options.client is undefined', () => {

@@ -7,7 +7,7 @@ import {
 	OnModuleInit
 } from '@nestjs/common';
 import * as ProvidersMap from './providers';
-import { BotClientOptions, DestroyReasons, LavalinkManager, NodeManager } from 'lavalink-client';
+import { BotClientOptions, LavalinkManager, NodeManager } from 'lavalink-client';
 import { Client } from 'discord.js';
 import {
 	ConfigurableModuleClass,
@@ -41,6 +41,11 @@ export class NecordLavalinkModule
 		private readonly options: NecordLavalinkModuleOptions
 	) {
 		super();
+
+		this.options.gracefulShutdown = {
+			destroyPlayers: this.options.gracefulShutdown?.destroyPlayers ?? true,
+			destroyNodes: this.options.gracefulShutdown?.destroyNodes ?? true
+		};
 	}
 
 	public onModuleInit() {
@@ -54,12 +59,29 @@ export class NecordLavalinkModule
 	}
 
 	public onApplicationShutdown() {
-		this.logger.log('Shutting down Necord Lavalink Module');
-		this.lavalinkManager.removeAllListeners();
-		this.lavalinkManager.players.forEach(player => player.destroy(DestroyReasons.Disconnected));
+		if (this.options.gracefulShutdown) {
+			this.logger.log('Shutting down Necord Lavalink Module');
 
-		this.nodeManager.removeAllListeners();
-		this.nodeManager.nodes.forEach(node => node.destroy(DestroyReasons.NodeDestroy));
+			if (
+				this.options.autoResume &&
+				(this.options.gracefulShutdown.destroyPlayers ||
+					this.options.gracefulShutdown.destroyNodes)
+			) {
+				this.logger.warn(
+					'Using autoResume and onApplicationShutdown with destructive shutdown options (destroyPlayers or destroyNodes) can cause issues to resume players'
+				);
+			}
+		}
+
+		if (this.options.gracefulShutdown?.destroyPlayers) {
+			this.logger.log('Destroying all players');
+			this.lavalinkManager.players.forEach(player => player.destroy('ApplicationShutdown'));
+		}
+
+		if (this.options.gracefulShutdown?.destroyNodes) {
+			this.logger.log('Destroying all nodes');
+			this.nodeManager.nodes.forEach(node => node.destroy('ApplicationShutdown'));
+		}
 	}
 
 	private getClientOptions(): BotClientOptions {

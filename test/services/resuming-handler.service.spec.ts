@@ -311,7 +311,6 @@ describe('ResumingHandlerService', () => {
 			});
 			expect(mockPlayer.connect).toHaveBeenCalled();
 			expect(mockPlayer.filterManager.data).toEqual({ volume: 0.8 });
-			expect(mockPlayer.queue.utils.sync).toHaveBeenCalledWith(true, false);
 			expect(mockLavalinkManager.utils.buildTrack).toHaveBeenCalledWith(
 				players[0].track,
 				mockClient.user

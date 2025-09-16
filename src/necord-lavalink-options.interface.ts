@@ -1,11 +1,15 @@
-import { ManagerOptions, Player } from 'lavalink-client';
+import { ManagerOptions } from 'lavalink-client';
 import { BaseStore } from './helpers';
 
-export interface NecordLavalinkModuleOptions<T extends Player = Player>
-	extends Omit<ManagerOptions, 'sendToShard'> {
+export interface NecordLavalinkModuleOptions extends Omit<ManagerOptions, 'sendToShard'> {
 	sendToShard?: ManagerOptions['sendToShard'];
+	gracefulShutdown?: {
+		destroyPlayers?: boolean;
+		destroyNodes?: boolean;
+	};
 	autoResume?: {
 		playerStore: BaseStore;
 		timer?: number;
+		autoSyncQueue?: boolean;
 	};
 }
