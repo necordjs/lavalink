@@ -3049,9 +3049,9 @@ discord-api-types@^0.38.1, discord-api-types@^0.38.16, discord-api-types@^0.38.3
   integrity sha512-muq7xKGznj5MSFCzuIm/2TO7DpttuomUTemVM82fRqgnMl70YRzEyY24jlbiV6R9tzOTq6A6UnZ0bsfZeKD38Q==
 
 discord.js@^14.16.2:
-  version "14.25.0"
-  resolved "https://registry.yarnpkg.com/discord.js/-/discord.js-14.25.0.tgz#12e5445112a8b18aa6254c411604342b374a3a95"
-  integrity sha512-9rnJWTAkfauKTieYJ3oI4oncrSzpbJPWN1/XU+2H6wsHQPtqbOrXvgM0nFhSVnIbTo7nfUF7fzcYRevvRGjpzA==
+  version "14.25.1"
+  resolved "https://registry.yarnpkg.com/discord.js/-/discord.js-14.25.1.tgz#ef8a298b814de2377776fcc732429cc53444d8ad"
+  integrity sha512-2l0gsPOLPs5t6GFZfQZKnL1OJNYFcuC/ETWsW4VtKVD/tg4ICa9x+jb9bkPffkMdRpRpuUaO/fKkHCBeiCKh8g==
   dependencies:
     "@discordjs/builders" "^1.13.0"
     "@discordjs/collection" "1.5.3"
@@ -5119,9 +5119,9 @@ keyv@^4.5.4:
     json-buffer "3.0.1"
 
 lavalink-client@^2.4.0:
-  version "2.6.7"
-  resolved "https://registry.yarnpkg.com/lavalink-client/-/lavalink-client-2.6.7.tgz#6765e4ae60cfd266452bbafdc345a6a611e0e5b5"
-  integrity sha512-y/7ML+caiqqe+9TDKfJyV1y10nrbGo3Csk/Eq7+y4+bG5gMcbbcQ/I3h85unJr3pcfvIyyaBts0yeglfI4vo7A==
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/lavalink-client/-/lavalink-client-2.7.0.tgz#5e06cdfb10208059ae6b4d0dcbbd6514c760b649"
+  integrity sha512-Q5oJYFDZAsvCCUiNd4xlGExNlUDTstlP6G3lOlxmLuvaXTkMRQW2yeAme72yMiE4tLOA+a13QzWHWDNTVsIiSg==
   dependencies:
     tslib "^2.8.1"
     ws "^8.18.3"
