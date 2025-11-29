@@ -21,7 +21,7 @@ export class NecordLavalinkService {
 	public extractInfoForPlayer(base: Message | ChatInputCommandInteraction) {
 		const guildId = base.guildId;
 		const textChannelId = base.channelId;
-		let voiceChannelId: string | null = null;
+		let voiceChannelId: string = null;
 
 		if (base instanceof Message) {
 			voiceChannelId = base.member?.voice.channelId ?? null;
