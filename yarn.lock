@@ -4898,9 +4898,9 @@ keyv@^4.5.4:
     json-buffer "3.0.1"
 
 lavalink-client@^2.4.0:
-  version "2.9.6"
-  resolved "https://registry.yarnpkg.com/lavalink-client/-/lavalink-client-2.9.6.tgz#c6e2a8e3f1469c4be53cfdbd5ca23cdca4c4f92a"
-  integrity sha512-Wzj/1dX0yQb94SH6HCSw23gli6Nb0gnh24zNNLxWG7QKC0JNs5wsIPI33hwQpFEASjNk3Qo9Dk40soMKYwt7tg==
+  version "2.9.7"
+  resolved "https://registry.yarnpkg.com/lavalink-client/-/lavalink-client-2.9.7.tgz#d1d700ba471172c4c5a8e27333bf5f84b6e5f425"
+  integrity sha512-tknzDqP58/cjn8ScywGyTPEGoXfqFBhZzbSM5n9hulhlaxQmzZvVN1mfKcfr1SCyE2nqXyPOHnmz8QVl80Iz6w==
   dependencies:
     tslib "^2.8.1"
     ws "^8.19.0"
