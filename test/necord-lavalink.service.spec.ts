@@ -76,7 +76,7 @@ describe('NecordLavalinkService', () => {
 			const mockGuild = {} as Guild;
 
 			mockClient.guilds.fetch.mockResolvedValue(mockGuild);
-			mockClient.channels.fetch.mockResolvedValue({} as VoiceChannel);
+			mockClient.channels.fetch.mockResolvedValue({});
 
 			const player = {
 				guildId: 'guildId1',
@@ -93,10 +93,10 @@ describe('NecordLavalinkService', () => {
 		it('should fetch voice channel correctly', async () => {
 			const mockVoiceChannel = {} as VoiceChannel;
 
-			mockClient.guilds.fetch.mockResolvedValue({} as Guild);
+			mockClient.guilds.fetch.mockResolvedValue({});
 			mockClient.channels.fetch
 				.mockResolvedValueOnce(mockVoiceChannel)
-				.mockResolvedValueOnce({} as TextChannel);
+				.mockResolvedValueOnce({});
 
 			const player = {
 				guildId: 'guildId1',
@@ -113,9 +113,9 @@ describe('NecordLavalinkService', () => {
 		it('should fetch text channel correctly', async () => {
 			const mockTextChannel = {} as TextChannel;
 
-			mockClient.guilds.fetch.mockResolvedValue({} as Guild);
+			mockClient.guilds.fetch.mockResolvedValue({});
 			mockClient.channels.fetch
-				.mockResolvedValueOnce({} as VoiceChannel)
+				.mockResolvedValueOnce({})
 				.mockResolvedValueOnce(mockTextChannel);
 
 			const player = {

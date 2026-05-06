@@ -42,7 +42,7 @@ describe('LavalinkListenersModule', () => {
 				event: 'playerCreate',
 				type: LavalinkListenerType.On,
 				host: LavalinkHostType.LavalinkManager
-			} as LavalinkListenerMeta)
+			})
 		};
 
 		moduleRef = await Test.createTestingModule({
