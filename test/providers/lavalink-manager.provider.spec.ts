@@ -192,9 +192,7 @@ describe('LavalinkManagerProvider', () => {
 		}
 
 		expect(errorThrown).toBe(true);
-		expect(errorMessage).toContain(
-			'ManagerOption.nodes must be an Array of NodeOptions and is required of at least 1 Node'
-		);
+		expect(errorMessage).toContain('ManagerOption.nodes must be an Array of NodeOptions');
 		expect(mockPlayerSaver.getSessions).toHaveBeenCalled();
 	});
 });

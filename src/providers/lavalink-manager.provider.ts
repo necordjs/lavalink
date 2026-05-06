@@ -14,7 +14,7 @@ export const LavalinkManagerProvider: Provider<LavalinkManager> = {
 	) => {
 		const nodes = options.nodes;
 
-		if (options.autoResume) {
+		if (options.autoResume && nodes?.length > 0) {
 			const sessions = await playerSaver.getSessions();
 
 			for (const node of nodes) {
