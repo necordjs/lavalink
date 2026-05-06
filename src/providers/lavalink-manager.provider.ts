@@ -1,6 +1,6 @@
-import { Provider } from '@nestjs/common';
+import { Logger, Provider } from '@nestjs/common';
 import { LAVALINK_MODULE_OPTIONS } from '../necord-lavalink.module-definition';
-import { LavalinkManager, LavalinkNodeOptions } from 'lavalink-client';
+import { LavalinkManager } from 'lavalink-client';
 import { NecordLavalinkModuleOptions } from '../necord-lavalink-options.interface';
 import { Client } from 'discord.js';
 import { PlayerSaverService } from '../services';
@@ -12,14 +12,14 @@ export const LavalinkManagerProvider: Provider<LavalinkManager> = {
 		options: NecordLavalinkModuleOptions,
 		playerSaver: PlayerSaverService
 	) => {
-		let nodes: LavalinkNodeOptions[] = options.nodes;
+		const nodes = options.nodes;
 
 		if (options.autoResume) {
 			const sessions = await playerSaver.getSessions();
-			nodes = options.nodes?.map(node => ({
-				...node,
-				sessionId: sessions.get(node.id)
-			}));
+
+			for (const node of nodes) {
+				node.sessionId = sessions.get(node.id);
+			}
 		}
 
 		return new LavalinkManager({
