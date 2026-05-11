@@ -1,4 +1,3 @@
-import { Injectable } from '@nestjs/common';
 import {
 	ChatInputCommandInteraction,
 	Client,
@@ -8,6 +7,7 @@ import {
 	VoiceChannel
 } from 'discord.js';
 import { LavalinkManager, Player } from 'lavalink-client';
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class NecordLavalinkService {

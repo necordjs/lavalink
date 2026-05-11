@@ -1,6 +1,7 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { DiscoveryService, MetadataScanner, Reflector } from '@nestjs/core';
 import { LavalinkManager, NodeManager } from 'lavalink-client';
+import { Test, TestingModule } from '@nestjs/testing';
+
 import {
 	LavalinkHostType,
 	LavalinkListenerMeta,

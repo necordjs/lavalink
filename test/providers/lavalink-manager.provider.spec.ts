@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { LavalinkManager } from 'lavalink-client';
 import { Client } from 'discord.js';
+
 import { LavalinkManagerProvider } from '../../src/providers/lavalink-manager.provider';
 import { LAVALINK_MODULE_OPTIONS, PlayerSaverService } from '../../src';
 

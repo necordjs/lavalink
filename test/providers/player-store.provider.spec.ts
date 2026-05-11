@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PlayerStore } from '../../src/constants';
+
 import { PlayerStoreProvider } from '../../src/providers/player-store.provider';
 import { LAVALINK_MODULE_OPTIONS } from '../../src';
+import { PlayerStore } from '../../src/constants';
 
 describe('PlayerStoreProvider', () => {
 	let moduleRef: TestingModule;

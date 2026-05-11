@@ -1,8 +1,9 @@
 import { Logger, Provider } from '@nestjs/common';
-import { LAVALINK_MODULE_OPTIONS } from '../necord-lavalink.module-definition';
 import { LavalinkManager } from 'lavalink-client';
-import { NecordLavalinkModuleOptions } from '../necord-lavalink-options.interface';
 import { Client } from 'discord.js';
+
+import { NecordLavalinkModuleOptions } from '../necord-lavalink-options.interface';
+import { LAVALINK_MODULE_OPTIONS } from '../necord-lavalink.module-definition';
 import { PlayerSaverService } from '../services';
 
 export const LavalinkManagerProvider: Provider<LavalinkManager> = {

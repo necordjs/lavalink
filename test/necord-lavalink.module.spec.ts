@@ -1,6 +1,7 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { LavalinkManager, NodeManager } from 'lavalink-client';
+import { Test, TestingModule } from '@nestjs/testing';
 import { Client } from 'discord.js';
+
 import {
 	NecordLavalinkModuleOptions,
 	NecordLavalinkModule,

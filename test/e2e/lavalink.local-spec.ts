@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { createApplication } from './utils.local-spec';
+
 import { NodeManagerContextOf, OnceNodeManager } from '../../src';
+import { createApplication } from './utils.local-spec';
 
 @Injectable()
 export class LavalinkLocalSpec {

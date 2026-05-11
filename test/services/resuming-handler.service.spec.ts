@@ -1,11 +1,12 @@
+import { LavalinkManager, NodeManager, Player } from 'lavalink-client';
 import { Test, TestingModule } from '@nestjs/testing';
+import { Client } from 'discord.js';
+
 import {
 	ResumingHandlerService,
 	PlayerManagerService,
 	PlayerSaverService
 } from '../../src/services';
-import { LavalinkManager, NodeManager, Player } from 'lavalink-client';
-import { Client } from 'discord.js';
 import { LAVALINK_MODULE_OPTIONS } from '../../src/necord-lavalink.module-definition';
 import { PlayerStore } from '../../src/constants';
 

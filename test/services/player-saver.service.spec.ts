@@ -1,7 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PlayerStore } from '../../src';
 import { Player } from 'lavalink-client';
+
 import { PlayerSaverService } from '../../src';
+import { PlayerStore } from '../../src';
 
 describe('PlayerSaverService', () => {
 	let moduleRef: TestingModule;

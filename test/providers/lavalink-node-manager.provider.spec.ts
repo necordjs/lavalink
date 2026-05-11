@@ -1,5 +1,6 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { NodeManager, LavalinkManager } from 'lavalink-client';
+import { Test, TestingModule } from '@nestjs/testing';
+
 import { LavalinkNodeManagerProvider } from '../../src/providers/lavalink-node-manager.provider';
 
 describe('LavalinkNodeManagerProvider', () => {

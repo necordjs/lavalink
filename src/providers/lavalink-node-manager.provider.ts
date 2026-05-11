@@ -1,5 +1,5 @@
-import { Provider } from '@nestjs/common';
 import { LavalinkManager, NodeManager } from 'lavalink-client';
+import { Provider } from '@nestjs/common';
 
 export const LavalinkNodeManagerProvider: Provider<NodeManager> = {
 	provide: NodeManager,

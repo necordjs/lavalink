@@ -1,7 +1,8 @@
 import { Provider } from '@nestjs/common';
-import { PlayerStore } from '../constants';
+
 import { NecordLavalinkModuleOptions } from '../necord-lavalink-options.interface';
 import { LAVALINK_MODULE_OPTIONS } from '../necord-lavalink.module-definition';
+import { PlayerStore } from '../constants';
 import { BaseStore } from '../helpers';
 
 export const PlayerStoreProvider: Provider<BaseStore> = {

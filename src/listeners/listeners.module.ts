@@ -1,8 +1,9 @@
-import { Module, OnModuleInit } from '@nestjs/common';
-import { LavalinkManager, NodeManager } from 'lavalink-client';
 import { DiscoveryModule, DiscoveryService, MetadataScanner, Reflector } from '@nestjs/core';
-import { LavalinkListener } from './decorators';
+import { LavalinkManager, NodeManager } from 'lavalink-client';
+import { Module, OnModuleInit } from '@nestjs/common';
+
 import { LavalinkListenerMeta } from './interfaces';
+import { LavalinkListener } from './decorators';
 import { LavalinkHostType } from './enums';
 
 interface ExecutableListener extends LavalinkListenerMeta {
@@ -57,7 +58,7 @@ export class LavalinkListenersModule implements OnModuleInit {
 		}
 
 		for (const [key, listeners] of groupedListeners) {
-			const [event, host] = key.split(':');
+			const [event, host] = key.split(':') as [string, LavalinkHostType];
 
 			if (host === LavalinkHostType.LavalinkManager) {
 				this.lavalinkManager.on(event as any, (...args: any[]) => {

@@ -1,4 +1,3 @@
-import { NecordLavalinkService } from '../src';
 import {
 	Message,
 	ChatInputCommandInteraction,
@@ -8,6 +7,8 @@ import {
 	GuildMember
 } from 'discord.js';
 import { LavalinkManager, Player } from 'lavalink-client';
+
+import { NecordLavalinkService } from '../src';
 
 describe('NecordLavalinkService', () => {
 	let service: NecordLavalinkService;

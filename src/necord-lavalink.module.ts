@@ -6,16 +6,17 @@ import {
 	OnApplicationShutdown,
 	OnModuleInit
 } from '@nestjs/common';
-import * as ProvidersMap from './providers';
 import { BotClientOptions, LavalinkManager, NodeManager } from 'lavalink-client';
 import { Client } from 'discord.js';
+
 import {
 	ConfigurableModuleClass,
 	LAVALINK_MODULE_OPTIONS
 } from './necord-lavalink.module-definition';
-import { LavalinkListenersModule } from './listeners';
 import { NecordLavalinkModuleOptions } from './necord-lavalink-options.interface';
 import { NecordLavalinkService } from './necord-lavalink.service';
+import { LavalinkListenersModule } from './listeners';
+import * as ProvidersMap from './providers';
 import * as ServicesMap from './services';
 
 const Services = Object.values(ServicesMap);
@@ -29,7 +30,7 @@ const Providers = Object.values(ProvidersMap);
 })
 export class NecordLavalinkModule
 	extends ConfigurableModuleClass
-	implements OnModuleInit, OnApplicationShutdown
+	implements OnApplicationShutdown, OnModuleInit
 {
 	private readonly logger = new Logger(NecordLavalinkModule.name);
 

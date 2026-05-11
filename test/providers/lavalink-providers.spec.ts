@@ -1,7 +1,8 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { PlayerManagerService, PlayerSaverService, LAVALINK_MODULE_OPTIONS } from '../../src';
 import { LavalinkManager, ManagerUtils, NodeManager } from 'lavalink-client';
+import { Test, TestingModule } from '@nestjs/testing';
 import { Client } from 'discord.js';
+
+import { PlayerManagerService, PlayerSaverService, LAVALINK_MODULE_OPTIONS } from '../../src';
 import { PlayerStore } from '../../src/constants';
 
 describe('Lavalink Providers', () => {

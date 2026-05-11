@@ -1,8 +1,9 @@
-import { Player, PlayerJson } from 'lavalink-client';
-import { BaseStore } from '../helpers/base-store';
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import { PlayerStore } from '../constants';
+import { Player, PlayerJson } from 'lavalink-client';
+
+import { BaseStore } from '../helpers/base-store';
 import { normalizeJsonObject } from '../utils';
+import { PlayerStore } from '../constants';
 
 @Injectable()
 export class PlayerSaverService {
