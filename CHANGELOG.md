@@ -1,5 +1,20 @@
 # Changelog
 
+## [2.0.0](https://github.com/necordjs/lavalink/compare/1.3.0...2.0.0) (2026-09-02)
+
+### Features
+
+* migrate to ts 6 ([fa43850](https://github.com/necordjs/lavalink/commit/fa4385048f0bdd2340999bc26fde1d872fd19f67))
+
+### Bug Fixes
+
+* change nodes iterable ([a7deef7](https://github.com/necordjs/lavalink/commit/a7deef72702a6a2e87572c71a61e14cdd21a7d2c))
+* remove project field due project service dominating ([92f05ba](https://github.com/necordjs/lavalink/commit/92f05ba19360ed150a9b6a94957a69ef5c36a805))
+
+### Refactor
+
+* migrate to npm ([6883903](https://github.com/necordjs/lavalink/commit/688390329cf2dc3b8414a48bb7728a9dfaae5132))
+
 ## [1.3.0](https://github.com/necordjs/lavalink/compare/1.2.2...1.3.0) (2025-09-16)
 
 ### Features
