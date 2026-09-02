@@ -4,10 +4,9 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import {
 	LavalinkHostType,
-	LavalinkListenerMeta,
 	LavalinkListenersModule,
 	LavalinkListenerType
-} from '../../src';
+} from '../../src/index.js';
 
 describe('LavalinkListenersModule', () => {
 	let module: LavalinkListenersModule;
@@ -19,27 +18,27 @@ describe('LavalinkListenersModule', () => {
 	let reflector: any;
 
 	beforeEach(async () => {
-		lavalinkManager = { on: jest.fn() };
-		nodeManager = { on: jest.fn() };
+		lavalinkManager = { on: vi.fn<(...args: any[]) => any>() };
+		nodeManager = { on: vi.fn<(...args: any[]) => any>() };
 
 		const fakeProviderInstance = {
-			onPlayerCreate: jest.fn()
+			onPlayerCreate: vi.fn<(...args: any[]) => any>()
 		};
 		discoveryService = {
-			getProviders: jest.fn().mockReturnValue([
+			getProviders: vi.fn<(...args: any[]) => any>().mockReturnValue([
 				{
 					instance: fakeProviderInstance,
-					isDependencyTreeStatic: jest.fn().mockReturnValue(true)
+					isDependencyTreeStatic: vi.fn<(...args: any[]) => any>().mockReturnValue(true)
 				}
 			])
 		};
 
 		metadataScanner = {
-			getAllMethodNames: jest.fn().mockReturnValue(['onPlayerCreate'])
+			getAllMethodNames: vi.fn<(...args: any[]) => any>().mockReturnValue(['onPlayerCreate'])
 		};
 
 		reflector = {
-			get: jest.fn().mockReturnValue({
+			get: vi.fn<(...args: any[]) => any>().mockReturnValue({
 				event: 'playerCreate',
 				type: LavalinkListenerType.On,
 				host: LavalinkHostType.LavalinkManager
@@ -90,7 +89,7 @@ describe('LavalinkListenersModule', () => {
 	});
 
 	it('should call the decorated method when event is emitted', () => {
-		let registeredHandler: (...args: any[]) => void;
+		let registeredHandler!: (...args: any[]) => void;
 
 		lavalinkManager.on.mockImplementationOnce((event, handler) => {
 			registeredHandler = handler;

@@ -1,7 +1,7 @@
 import { NodeManager, LavalinkManager } from 'lavalink-client';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { LavalinkNodeManagerProvider } from '../../src/providers/lavalink-node-manager.provider';
+import { LavalinkNodeManagerProvider } from '../../src/providers/lavalink-node-manager.provider.js';
 
 describe('LavalinkNodeManagerProvider', () => {
 	let moduleRef: TestingModule;
@@ -13,7 +13,7 @@ describe('LavalinkNodeManagerProvider', () => {
 	});
 
 	it('should return nodeManager from LavalinkManager', async () => {
-		const mockNodeManager = { connect: jest.fn() };
+		const mockNodeManager = { connect: vi.fn<(...args: any[]) => any>() };
 		const mockLavalinkManager = {
 			nodeManager: mockNodeManager
 		} as unknown as LavalinkManager;

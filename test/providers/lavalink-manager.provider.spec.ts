@@ -2,8 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { LavalinkManager } from 'lavalink-client';
 import { Client } from 'discord.js';
 
-import { LavalinkManagerProvider } from '../../src/providers/lavalink-manager.provider';
-import { LAVALINK_MODULE_OPTIONS, PlayerSaverService } from '../../src';
+import { LavalinkManagerProvider } from '../../src/providers/lavalink-manager.provider.js';
+import { LAVALINK_MODULE_OPTIONS, PlayerSaverService } from '../../src/index.js';
 
 describe('LavalinkManagerProvider', () => {
 	let moduleRef: TestingModule;
@@ -15,7 +15,7 @@ describe('LavalinkManagerProvider', () => {
 					'123',
 					{
 						shard: {
-							send: jest.fn()
+							send: vi.fn<(...args: any[]) => any>()
 						}
 					}
 				]
@@ -24,7 +24,7 @@ describe('LavalinkManagerProvider', () => {
 	} as unknown as Client;
 
 	const mockPlayerSaver = {
-		getSessions: jest.fn()
+		getSessions: vi.fn<(...args: any[]) => any>()
 	};
 
 	afterEach(async () => {

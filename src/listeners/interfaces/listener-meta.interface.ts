@@ -1,5 +1,5 @@
-import { NecordLavalinkEvents } from './listener-events.interface';
-import { LavalinkHostType, LavalinkListenerType } from '../enums';
+import { LavalinkHostType, LavalinkListenerType } from '../enums/index.js';
+import { NecordLavalinkEvents } from './listener-events.interface.js';
 
 export interface LavalinkListenerMeta {
 	type: LavalinkListenerType;

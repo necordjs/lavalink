@@ -1,1 +1,1 @@
-export * from './normalize-json-object.util';
+export * from './normalize-json-object.util.js';

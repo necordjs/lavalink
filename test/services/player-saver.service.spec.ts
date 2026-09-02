@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { Player } from 'lavalink-client';
 
-import { PlayerSaverService } from '../../src';
-import { PlayerStore } from '../../src';
+import { PlayerSaverService } from '../../src/index.js';
+import { PlayerStore } from '../../src/index.js';
 
 describe('PlayerSaverService', () => {
 	let moduleRef: TestingModule;
@@ -11,10 +11,10 @@ describe('PlayerSaverService', () => {
 
 	beforeEach(() => {
 		mockStore = {
-			get: jest.fn(),
-			save: jest.fn(),
-			delete: jest.fn(),
-			getAll: jest.fn()
+			get: vi.fn<(...args: any[]) => any>(),
+			save: vi.fn<(...args: any[]) => any>(),
+			delete: vi.fn<(...args: any[]) => any>(),
+			getAll: vi.fn<(...args: any[]) => any>()
 		};
 	});
 
@@ -22,7 +22,7 @@ describe('PlayerSaverService', () => {
 		if (moduleRef) {
 			await moduleRef.close();
 		}
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 	});
 
 	it('should create PlayerSaver instance with provided store', async () => {
@@ -69,7 +69,7 @@ describe('PlayerSaverService', () => {
 			};
 
 			const mockPlayer = {
-				toJSON: jest.fn().mockReturnValue({
+				toJSON: vi.fn<(...args: any[]) => any>().mockReturnValue({
 					guildId: 'guild1',
 					paused: true,
 					volume: 80
@@ -92,7 +92,7 @@ describe('PlayerSaverService', () => {
 			};
 
 			const mockPlayer = {
-				toJSON: jest.fn().mockReturnValue(playerData)
+				toJSON: vi.fn<(...args: any[]) => any>().mockReturnValue(playerData)
 			} as unknown as Player;
 
 			await playerSaver.savePlayerOnUpdate(playerData as any, mockPlayer);
@@ -102,7 +102,7 @@ describe('PlayerSaverService', () => {
 
 		it('should save player when oldPlayer is null', async () => {
 			const mockPlayer = {
-				toJSON: jest.fn().mockReturnValue({
+				toJSON: vi.fn<(...args: any[]) => any>().mockReturnValue({
 					guildId: 'guild1',
 					nodeId: 'node1',
 					nodeSessionId: 'session1',
@@ -128,7 +128,7 @@ describe('PlayerSaverService', () => {
 
 		it('should save player on create', async () => {
 			const mockPlayer = {
-				toJSON: jest.fn().mockReturnValue({
+				toJSON: vi.fn<(...args: any[]) => any>().mockReturnValue({
 					guildId: 'guild1',
 					paused: false,
 					volume: 100

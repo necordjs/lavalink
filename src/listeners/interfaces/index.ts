@@ -1,2 +1,2 @@
-export * from './listener-events.interface';
-export * from './listener-meta.interface';
+export * from './listener-events.interface.js';
+export * from './listener-meta.interface.js';

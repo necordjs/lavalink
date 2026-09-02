@@ -1,1 +1,1 @@
-export { PlayerStore } from './player.token';
+export { PlayerStore } from './player.token.js';

@@ -8,7 +8,7 @@ import {
 } from 'discord.js';
 import { LavalinkManager, Player } from 'lavalink-client';
 
-import { NecordLavalinkService } from '../src';
+import { NecordLavalinkService } from '../src/index.js';
 
 describe('NecordLavalinkService', () => {
 	let service: NecordLavalinkService;
@@ -17,8 +17,8 @@ describe('NecordLavalinkService', () => {
 
 	beforeEach(() => {
 		mockClient = {
-			guilds: { fetch: jest.fn() },
-			channels: { fetch: jest.fn() }
+			guilds: { fetch: vi.fn<(...args: any[]) => any>() },
+			channels: { fetch: vi.fn<(...args: any[]) => any>() }
 		};
 
 		mockLavalinkManager = {

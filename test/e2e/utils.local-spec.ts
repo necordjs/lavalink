@@ -3,13 +3,13 @@ import { IntentsBitField } from 'discord.js';
 import { NestFactory } from '@nestjs/core';
 import { NecordModule } from 'necord';
 
-import { NecordLavalinkModule } from '../../src';
+import { NecordLavalinkModule } from '../../src/index.js';
 
 export const createApplication = (...providers: Provider[]) => {
 	@Module({
 		imports: [
 			NecordModule.forRoot({
-				token: process.env.DISCORD_TOKEN,
+				token: process.env.DISCORD_TOKEN!,
 				intents: [
 					IntentsBitField.Flags.Guilds,
 					IntentsBitField.Flags.DirectMessages,

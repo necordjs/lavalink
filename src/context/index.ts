@@ -1,1 +1,1 @@
-export * from './lavalink-context.interface';
+export * from './lavalink-context.interface.js';
