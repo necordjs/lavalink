@@ -7,12 +7,12 @@ import {
 	LavalinkListenerMeta,
 	OnceLavalinkManager,
 	OnceNodeManager
-} from '../../../src';
+} from '../../../src/index.js';
 
 describe('@OnceLavalinkManager', () => {
 	class Test {
 		@OnceLavalinkManager('playerCreate')
-		public execute() {
+		public execute(this: void) {
 			return 'Executed';
 		}
 	}
@@ -33,7 +33,7 @@ describe('@OnceLavalinkManager', () => {
 describe('@OnceNodeManager', () => {
 	class Test {
 		@OnceNodeManager('connect')
-		public execute() {
+		public execute(this: void) {
 			return 'Executed';
 		}
 	}

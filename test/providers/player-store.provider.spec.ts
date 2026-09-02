@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { PlayerStoreProvider } from '../../src/providers/player-store.provider';
-import { LAVALINK_MODULE_OPTIONS } from '../../src';
-import { PlayerStore } from '../../src/constants';
+import { PlayerStoreProvider } from '../../src/providers/player-store.provider.js';
+import { LAVALINK_MODULE_OPTIONS } from '../../src/index.js';
+import { PlayerStore } from '../../src/constants/index.js';
 
 describe('PlayerStoreProvider', () => {
 	let moduleRef: TestingModule;
@@ -14,7 +14,10 @@ describe('PlayerStoreProvider', () => {
 	});
 
 	it('should return playerStore when autoResume and playerStore are provided', async () => {
-		const mockPlayerStore = { get: jest.fn(), save: jest.fn() };
+		const mockPlayerStore = {
+			get: vi.fn<(...args: any[]) => any>(),
+			save: vi.fn<(...args: any[]) => any>()
+		};
 		const mockOptions = {
 			nodes: [],
 			autoResume: {

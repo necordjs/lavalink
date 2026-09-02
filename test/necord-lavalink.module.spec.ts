@@ -7,7 +7,7 @@ import {
 	NecordLavalinkModule,
 	LAVALINK_MODULE_OPTIONS,
 	ResumingHandlerService
-} from '../src';
+} from '../src/index.js';
 
 describe('NecordLavalinkModule', () => {
 	let module: NecordLavalinkModule;
@@ -21,33 +21,33 @@ describe('NecordLavalinkModule', () => {
 	beforeEach(async () => {
 		mockClient = {
 			user: { id: '123', username: 'TestBot' },
-			once: jest.fn(),
-			on: jest.fn()
+			once: vi.fn<(...args: any[]) => any>(),
+			on: vi.fn<(...args: any[]) => any>()
 		};
 
 		mockClient.once.mockReturnValue(mockClient);
 		mockClient.on.mockReturnValue(mockClient);
 
 		mockLavalinkManager = {
-			init: jest.fn(),
-			sendRawData: jest.fn(),
-			removeAllListeners: jest.fn(),
+			init: vi.fn<(...args: any[]) => any>(),
+			sendRawData: vi.fn<(...args: any[]) => any>(),
+			removeAllListeners: vi.fn<(...args: any[]) => any>(),
 			players: new Map([
-				['player1', { destroy: jest.fn() }],
-				['player2', { destroy: jest.fn() }]
+				['player1', { destroy: vi.fn<(...args: any[]) => any>() }],
+				['player2', { destroy: vi.fn<(...args: any[]) => any>() }]
 			])
 		};
 
 		mockNodeManager = {
-			removeAllListeners: jest.fn(),
+			removeAllListeners: vi.fn<(...args: any[]) => any>(),
 			nodes: new Map([
-				['node1', { destroy: jest.fn() }],
-				['node2', { destroy: jest.fn() }]
+				['node1', { destroy: vi.fn<(...args: any[]) => any>() }],
+				['node2', { destroy: vi.fn<(...args: any[]) => any>() }]
 			])
 		};
 
 		mockResumingHandler = {
-			resume: jest.fn()
+			resume: vi.fn<(...args: any[]) => any>()
 		};
 
 		mockOptions = {
@@ -101,8 +101,8 @@ describe('NecordLavalinkModule', () => {
 	});
 
 	it('should initialize LavalinkManager on client ready', async () => {
-		let readyHandler: () => void | Promise<void>;
-		let rawHandler: (data: any) => void;
+		let readyHandler!: () => void | Promise<void>;
+		let _rawHandler!: (data: any) => void;
 
 		mockClient.once.mockImplementationOnce((event, handler) => {
 			if (event === 'clientReady') readyHandler = handler;
@@ -110,7 +110,7 @@ describe('NecordLavalinkModule', () => {
 		});
 
 		mockClient.on.mockImplementationOnce((event, handler) => {
-			if (event === 'raw') rawHandler = handler;
+			if (event === 'raw') _rawHandler = handler;
 			return mockClient;
 		});
 
@@ -127,9 +127,9 @@ describe('NecordLavalinkModule', () => {
 	});
 
 	it('should call sendRawData on raw event', () => {
-		let rawHandler: (data: any) => void;
+		let rawHandler!: (data: any) => void;
 
-		mockClient.once.mockImplementationOnce((event, handler) => {
+		mockClient.once.mockImplementationOnce(() => {
 			return mockClient;
 		});
 

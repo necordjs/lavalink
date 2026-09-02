@@ -6,9 +6,9 @@ import {
 	ResumingHandlerService,
 	PlayerManagerService,
 	PlayerSaverService
-} from '../../src/services';
-import { LAVALINK_MODULE_OPTIONS } from '../../src/necord-lavalink.module-definition';
-import { PlayerStore } from '../../src/constants';
+} from '../../src/services/index.js';
+import { LAVALINK_MODULE_OPTIONS } from '../../src/necord-lavalink.module-definition.js';
+import { PlayerStore } from '../../src/constants/index.js';
 
 describe('ResumingHandlerService', () => {
 	let moduleRef: TestingModule;
@@ -23,17 +23,17 @@ describe('ResumingHandlerService', () => {
 
 	beforeEach(async () => {
 		mockNodeManager = {
-			on: jest.fn()
+			on: vi.fn<(...args: any[]) => any>()
 		};
 
 		mockPlayerManager = {
-			create: jest.fn()
+			create: vi.fn<(...args: any[]) => any>()
 		};
 
 		mockLavalinkManager = {
-			on: jest.fn(),
+			on: vi.fn<(...args: any[]) => any>(),
 			utils: {
-				buildTrack: jest.fn()
+				buildTrack: vi.fn<(...args: any[]) => any>()
 			}
 		};
 
@@ -42,15 +42,15 @@ describe('ResumingHandlerService', () => {
 		};
 
 		mockPlayerSaver = {
-			savePlayerOnCreate: jest.fn(),
-			savePlayerOnUpdate: jest.fn(),
-			deletePlayer: jest.fn(),
-			transformId: jest.fn().mockReturnValue('player:guild1')
+			savePlayerOnCreate: vi.fn<(...args: any[]) => any>(),
+			savePlayerOnUpdate: vi.fn<(...args: any[]) => any>(),
+			deletePlayer: vi.fn<(...args: any[]) => any>(),
+			transformId: vi.fn<(...args: any[]) => any>().mockReturnValue('player:guild1')
 		};
 
 		mockStore = {
-			get: jest.fn(),
-			delete: jest.fn()
+			get: vi.fn<(...args: any[]) => any>(),
+			delete: vi.fn<(...args: any[]) => any>()
 		};
 
 		mockOptions = {
@@ -82,7 +82,7 @@ describe('ResumingHandlerService', () => {
 		if (moduleRef) {
 			await moduleRef.close();
 		}
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 	});
 
 	it('should be defined', () => {
@@ -158,7 +158,7 @@ describe('ResumingHandlerService', () => {
 			)[1];
 
 			const mockNode = {
-				updateSession: jest.fn()
+				updateSession: vi.fn<(...args: any[]) => any>()
 			};
 
 			await nodeConnectHandler(mockNode);
@@ -192,7 +192,7 @@ describe('ResumingHandlerService', () => {
 			)[1];
 
 			const mockNode = {
-				updateSession: jest.fn()
+				updateSession: vi.fn<(...args: any[]) => any>()
 			};
 
 			await nodeConnectHandler(mockNode);
@@ -234,11 +234,11 @@ describe('ResumingHandlerService', () => {
 
 		it('should handle node resumed event with connected players', async () => {
 			const mockPlayer = {
-				connect: jest.fn(),
+				connect: vi.fn<(...args: any[]) => any>(),
 				filterManager: { data: {} },
 				queue: {
 					utils: {
-						sync: jest.fn().mockResolvedValue(undefined)
+						sync: vi.fn<(...args: any[]) => any>().mockResolvedValue(undefined)
 					},
 					current: null
 				},
@@ -320,11 +320,11 @@ describe('ResumingHandlerService', () => {
 
 		it('should handle node resumed event with disconnected players', async () => {
 			const mockPlayer = {
-				connect: jest.fn(),
+				connect: vi.fn<(...args: any[]) => any>(),
 				filterManager: { data: {} },
 				queue: {
 					utils: {
-						sync: jest.fn().mockResolvedValue(undefined)
+						sync: vi.fn<(...args: any[]) => any>().mockResolvedValue(undefined)
 					},
 					current: null
 				},
@@ -379,11 +379,11 @@ describe('ResumingHandlerService', () => {
 
 		it('should handle node resumed event with volume decrementer', async () => {
 			const mockPlayer = {
-				connect: jest.fn(),
+				connect: vi.fn<(...args: any[]) => any>(),
 				filterManager: { data: {} },
 				queue: {
 					utils: {
-						sync: jest.fn().mockResolvedValue(undefined)
+						sync: vi.fn<(...args: any[]) => any>().mockResolvedValue(undefined)
 					},
 					current: null
 				},
@@ -468,11 +468,11 @@ describe('ResumingHandlerService', () => {
 
 		it('should handle node resumed event with existing queue current track', async () => {
 			const mockPlayer = {
-				connect: jest.fn(),
+				connect: vi.fn<(...args: any[]) => any>(),
 				filterManager: { data: {} },
 				queue: {
 					utils: {
-						sync: jest.fn().mockResolvedValue(undefined)
+						sync: vi.fn<(...args: any[]) => any>().mockResolvedValue(undefined)
 					},
 					current: {
 						requester: { id: 'user123' }

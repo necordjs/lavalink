@@ -2,8 +2,12 @@ import { LavalinkManager, ManagerUtils, NodeManager } from 'lavalink-client';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Client } from 'discord.js';
 
-import { PlayerManagerService, PlayerSaverService, LAVALINK_MODULE_OPTIONS } from '../../src';
-import { PlayerStore } from '../../src/constants';
+import {
+	PlayerManagerService,
+	PlayerSaverService,
+	LAVALINK_MODULE_OPTIONS
+} from '../../src/index.js';
+import { PlayerStore } from '../../src/constants/index.js';
 
 describe('Lavalink Providers', () => {
 	const mockLavalink = {
@@ -15,10 +19,10 @@ describe('Lavalink Providers', () => {
 	};
 
 	const mockPlayerStore = {
-		get: jest.fn(),
-		save: jest.fn(),
-		delete: jest.fn(),
-		getAll: jest.fn().mockResolvedValue([])
+		get: vi.fn<(...args: any[]) => any>(),
+		save: vi.fn<(...args: any[]) => any>(),
+		delete: vi.fn<(...args: any[]) => any>(),
+		getAll: vi.fn<(...args: any[]) => any>().mockResolvedValue([])
 	};
 
 	const mockClient = {
@@ -28,7 +32,7 @@ describe('Lavalink Providers', () => {
 					'123',
 					{
 						shard: {
-							send: jest.fn()
+							send: vi.fn<(...args: any[]) => any>()
 						}
 					}
 				]

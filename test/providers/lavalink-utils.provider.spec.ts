@@ -1,7 +1,7 @@
 import { ManagerUtils, LavalinkManager } from 'lavalink-client';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { LavalinkUtilsProvider } from '../../src/providers/lavalink-utils.provider';
+import { LavalinkUtilsProvider } from '../../src/providers/lavalink-utils.provider.js';
 
 describe('LavalinkUtilsProvider', () => {
 	let moduleRef: TestingModule;
@@ -13,7 +13,7 @@ describe('LavalinkUtilsProvider', () => {
 	});
 
 	it('should return utils from LavalinkManager', async () => {
-		const mockUtils = { buildTrack: jest.fn() };
+		const mockUtils = { buildTrack: vi.fn<(...args: any[]) => any>() };
 		const mockLavalinkManager = {
 			utils: mockUtils
 		} as unknown as LavalinkManager;

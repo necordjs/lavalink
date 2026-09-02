@@ -1,6 +1,6 @@
 import { Reflector } from '@nestjs/core';
 
-import { LavalinkListenerMeta } from '../interfaces';
+import { LavalinkListenerMeta } from '../interfaces/index.js';
 
 /**
  * Decorator that marks a method as a listener for discord.js client.

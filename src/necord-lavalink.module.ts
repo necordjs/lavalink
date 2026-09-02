@@ -12,12 +12,12 @@ import { Client } from 'discord.js';
 import {
 	ConfigurableModuleClass,
 	LAVALINK_MODULE_OPTIONS
-} from './necord-lavalink.module-definition';
-import { NecordLavalinkModuleOptions } from './necord-lavalink-options.interface';
-import { NecordLavalinkService } from './necord-lavalink.service';
-import { LavalinkListenersModule } from './listeners';
-import * as ProvidersMap from './providers';
-import * as ServicesMap from './services';
+} from './necord-lavalink.module-definition.js';
+import { NecordLavalinkModuleOptions } from './necord-lavalink-options.interface.js';
+import { NecordLavalinkService } from './necord-lavalink.service.js';
+import { LavalinkListenersModule } from './listeners/index.js';
+import * as ProvidersMap from './providers/index.js';
+import * as ServicesMap from './services/index.js';
 
 const Services = Object.values(ServicesMap);
 const Providers = Object.values(ProvidersMap);
@@ -88,8 +88,8 @@ export class NecordLavalinkModule
 	private getClientOptions(): BotClientOptions {
 		return (
 			this.options.client ?? {
-				id: this.client.user.id,
-				username: this.client.user.username
+				id: this.client.user!.id,
+				username: this.client.user!.username
 			}
 		);
 	}

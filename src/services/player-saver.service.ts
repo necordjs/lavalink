@@ -1,9 +1,9 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { Player, PlayerJson } from 'lavalink-client';
 
-import { BaseStore } from '../helpers/base-store';
-import { normalizeJsonObject } from '../utils';
-import { PlayerStore } from '../constants';
+import { normalizeJsonObject } from '../utils/index.js';
+import { BaseStore } from '../helpers/base-store.js';
+import { PlayerStore } from '../constants/index.js';
 
 @Injectable()
 export class PlayerSaverService {
@@ -11,7 +11,10 @@ export class PlayerSaverService {
 
 	public constructor(@Inject(PlayerStore) private readonly store: BaseStore) {}
 
-	public async savePlayerOnUpdate(oldPlayer: PlayerJson, newPlayer: Player): Promise<void> {
+	public async savePlayerOnUpdate(
+		oldPlayer: PlayerJson | null,
+		newPlayer: Player
+	): Promise<void> {
 		const newPlayerData = newPlayer.toJSON();
 
 		if (!oldPlayer || normalizeJsonObject(oldPlayer) !== normalizeJsonObject(newPlayerData)) {

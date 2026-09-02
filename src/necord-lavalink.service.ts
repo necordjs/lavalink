@@ -21,7 +21,7 @@ export class NecordLavalinkService {
 	public extractInfoForPlayer(base: Message | ChatInputCommandInteraction) {
 		const guildId = base.guildId;
 		const textChannelId = base.channelId;
-		let voiceChannelId: string = null;
+		let voiceChannelId: string | null = null;
 
 		if (base instanceof Message) {
 			voiceChannelId = base.member?.voice.channelId ?? null;
@@ -35,8 +35,10 @@ export class NecordLavalinkService {
 	public async extractPlayerData(player: Player) {
 		return {
 			guild: await this.client.guilds.fetch(player.guildId),
-			voiceChannel: (await this.client.channels.fetch(player.voiceChannelId)) as VoiceChannel,
-			textChannel: (await this.client.channels.fetch(player.textChannelId)) as TextChannel
+			voiceChannel: (await this.client.channels.fetch(
+				player.voiceChannelId!
+			)) as VoiceChannel,
+			textChannel: (await this.client.channels.fetch(player.textChannelId!)) as TextChannel
 		};
 	}
 }

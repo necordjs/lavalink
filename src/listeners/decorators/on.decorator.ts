@@ -1,6 +1,6 @@
-import { NecordLavalinkManagerEvents, NecordNodeManagerEvents } from '../interfaces';
-import { LavalinkHostType, LavalinkListenerType } from '../enums';
-import { LavalinkListener } from './listener.decorator';
+import { NecordLavalinkManagerEvents, NecordNodeManagerEvents } from '../interfaces/index.js';
+import { LavalinkHostType, LavalinkListenerType } from '../enums/index.js';
+import { LavalinkListener } from './listener.decorator.js';
 
 /**
  * Decorator that marks a method as a listener for Lavalink client.

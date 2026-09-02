@@ -5,7 +5,7 @@ import {
 	LavalinkListener,
 	LavalinkListenerType,
 	LavalinkListenerMeta
-} from '../../../src';
+} from '../../../src/index.js';
 
 describe('@LavalinkListener', () => {
 	class TestListener {

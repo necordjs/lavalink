@@ -7,12 +7,12 @@ import {
 	OnLavalinkManager,
 	LavalinkListenerMeta,
 	OnNodeManager
-} from '../../../src';
+} from '../../../src/index.js';
 
 describe('@OnLavalinkManager', () => {
 	class Test {
 		@OnLavalinkManager('playerCreate')
-		public execute() {
+		public execute(this: void) {
 			return 'Executed';
 		}
 	}
@@ -33,7 +33,7 @@ describe('@OnLavalinkManager', () => {
 describe('@OnNodeManager', () => {
 	class Test {
 		@OnNodeManager('connect')
-		public execute() {
+		public execute(this: void) {
 			return 'Executed';
 		}
 	}

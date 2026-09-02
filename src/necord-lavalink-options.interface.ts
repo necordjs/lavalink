@@ -1,6 +1,6 @@
 import { ManagerOptions } from 'lavalink-client';
 
-import { BaseStore } from './helpers';
+import { BaseStore } from './helpers/index.js';
 
 export interface NecordLavalinkModuleOptions extends Omit<ManagerOptions, 'sendToShard'> {
 	sendToShard?: ManagerOptions['sendToShard'];

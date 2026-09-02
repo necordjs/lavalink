@@ -2,12 +2,12 @@ import { Inject, Injectable, Logger, OnApplicationBootstrap } from '@nestjs/comm
 import { LavalinkManager, NodeManager } from 'lavalink-client';
 import { Client } from 'discord.js';
 
-import { NecordLavalinkModuleOptions } from '../necord-lavalink-options.interface';
-import { LAVALINK_MODULE_OPTIONS } from '../necord-lavalink.module-definition';
-import { PlayerManagerService } from './player-manager.service';
-import { PlayerSaverService } from './player-saver.service';
-import { PlayerStore } from '../constants';
-import { BaseStore } from '../helpers';
+import { NecordLavalinkModuleOptions } from '../necord-lavalink-options.interface.js';
+import { LAVALINK_MODULE_OPTIONS } from '../necord-lavalink.module-definition.js';
+import { PlayerManagerService } from './player-manager.service.js';
+import { PlayerSaverService } from './player-saver.service.js';
+import { PlayerStore } from '../constants/index.js';
+import { BaseStore } from '../helpers/index.js';
 
 @Injectable()
 export class ResumingHandlerService implements OnApplicationBootstrap {
@@ -40,7 +40,7 @@ export class ResumingHandlerService implements OnApplicationBootstrap {
 			await this.playerSaver.savePlayerOnUpdate(oldPlayer, newPlayer);
 		});
 
-		this.lavalinkManager.on('playerDestroy', async (player, reason) => {
+		this.lavalinkManager.on('playerDestroy', async (player, _reason) => {
 			await this.playerSaver.deletePlayer(player.guildId);
 		});
 
@@ -59,7 +59,7 @@ export class ResumingHandlerService implements OnApplicationBootstrap {
 
 			for (const playerData of players) {
 				const id = this.playerSaver.transformId(playerData.guildId);
-				const savedPlayer = await this.store.get(id);
+				const savedPlayer = (await this.store.get(id))!;
 
 				if (!playerData.state.connected) {
 					await this.store.delete(id);

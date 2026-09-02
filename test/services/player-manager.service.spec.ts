@@ -1,12 +1,12 @@
-import { PlayerManagerService } from '../../src';
+import { PlayerManagerService } from '../../src/index.js';
 
 describe('PlayerManagerService', () => {
 	let playerManager: PlayerManagerService;
 	const lavalinkManagerMock = {
-		getPlayer: jest.fn(),
-		createPlayer: jest.fn(),
-		destroyPlayer: jest.fn(),
-		deletePlayer: jest.fn()
+		getPlayer: vi.fn<(...args: any[]) => any>(),
+		createPlayer: vi.fn<(...args: any[]) => any>(),
+		destroyPlayer: vi.fn<(...args: any[]) => any>(),
+		deletePlayer: vi.fn<(...args: any[]) => any>()
 	};
 
 	beforeEach(() => {
@@ -14,7 +14,7 @@ describe('PlayerManagerService', () => {
 	});
 
 	afterEach(() => {
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 	});
 
 	it('should be defined', () => {

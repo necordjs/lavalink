@@ -2,9 +2,9 @@ import { DiscoveryModule, DiscoveryService, MetadataScanner, Reflector } from '@
 import { LavalinkManager, NodeManager } from 'lavalink-client';
 import { Module, OnModuleInit } from '@nestjs/common';
 
-import { LavalinkListenerMeta } from './interfaces';
-import { LavalinkListener } from './decorators';
-import { LavalinkHostType } from './enums';
+import { LavalinkListenerMeta } from './interfaces/index.js';
+import { LavalinkListener } from './decorators/index.js';
+import { LavalinkHostType } from './enums/index.js';
 
 interface ExecutableListener extends LavalinkListenerMeta {
 	run: (...args: any[]) => void;
