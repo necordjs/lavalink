@@ -1,12 +1,13 @@
-import { LavalinkManager, NodeManager } from 'lavalink-client';
 import { Test, TestingModule } from '@nestjs/testing';
 import { Client } from 'discord.js';
 
 import {
 	NecordLavalinkModuleOptions,
 	NecordLavalinkModule,
+	LAVALINK_NODE_MANAGER,
 	LAVALINK_MODULE_OPTIONS,
-	ResumingHandlerService
+	ResumingHandlerService,
+	LAVALINK_MANAGER
 } from '../src/index.js';
 
 describe('NecordLavalinkModule', () => {
@@ -75,11 +76,11 @@ describe('NecordLavalinkModule', () => {
 					useValue: mockClient
 				},
 				{
-					provide: LavalinkManager,
+					provide: LAVALINK_MANAGER,
 					useValue: mockLavalinkManager
 				},
 				{
-					provide: NodeManager,
+					provide: LAVALINK_NODE_MANAGER,
 					useValue: mockNodeManager
 				},
 				{
@@ -176,11 +177,11 @@ describe('NecordLavalinkModule', () => {
 					useValue: mockClient
 				},
 				{
-					provide: LavalinkManager,
+					provide: LAVALINK_MANAGER,
 					useValue: mockLavalinkManager
 				},
 				{
-					provide: NodeManager,
+					provide: LAVALINK_NODE_MANAGER,
 					useValue: mockNodeManager
 				},
 				{
@@ -230,11 +231,11 @@ describe('NecordLavalinkModule', () => {
 					useValue: mockClient
 				},
 				{
-					provide: LavalinkManager,
+					provide: LAVALINK_MANAGER,
 					useValue: mockLavalinkManager
 				},
 				{
-					provide: NodeManager,
+					provide: LAVALINK_NODE_MANAGER,
 					useValue: mockNodeManager
 				},
 				{
@@ -282,11 +283,11 @@ describe('NecordLavalinkModule', () => {
 					useValue: mockClient
 				},
 				{
-					provide: LavalinkManager,
+					provide: LAVALINK_MANAGER,
 					useValue: mockLavalinkManager
 				},
 				{
-					provide: NodeManager,
+					provide: LAVALINK_NODE_MANAGER,
 					useValue: mockNodeManager
 				},
 				{
@@ -337,11 +338,11 @@ describe('NecordLavalinkModule', () => {
 					useValue: mockClient
 				},
 				{
-					provide: LavalinkManager,
+					provide: LAVALINK_MANAGER,
 					useValue: mockLavalinkManager
 				},
 				{
-					provide: NodeManager,
+					provide: LAVALINK_NODE_MANAGER,
 					useValue: mockNodeManager
 				},
 				{

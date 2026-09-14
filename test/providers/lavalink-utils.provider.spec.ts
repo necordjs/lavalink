@@ -2,6 +2,7 @@ import { ManagerUtils, LavalinkManager } from 'lavalink-client';
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { LavalinkUtilsProvider } from '../../src/providers/lavalink-utils.provider.js';
+import { LAVALINK_MANAGER, LAVALINK_UTILS } from '../../src/constants/index.js';
 
 describe('LavalinkUtilsProvider', () => {
 	let moduleRef: TestingModule;
@@ -21,11 +22,11 @@ describe('LavalinkUtilsProvider', () => {
 		moduleRef = await Test.createTestingModule({
 			providers: [
 				LavalinkUtilsProvider,
-				{ provide: LavalinkManager, useValue: mockLavalinkManager }
+				{ provide: LAVALINK_MANAGER, useValue: mockLavalinkManager }
 			]
 		}).compile();
 
-		const utils = moduleRef.get<ManagerUtils>(ManagerUtils);
+		const utils = moduleRef.get<ManagerUtils>(LAVALINK_UTILS);
 		expect(utils).toBe(mockUtils);
 	});
 
@@ -37,11 +38,11 @@ describe('LavalinkUtilsProvider', () => {
 		moduleRef = await Test.createTestingModule({
 			providers: [
 				LavalinkUtilsProvider,
-				{ provide: LavalinkManager, useValue: mockLavalinkManager }
+				{ provide: LAVALINK_MANAGER, useValue: mockLavalinkManager }
 			]
 		}).compile();
 
-		const utils = moduleRef.get<ManagerUtils>(ManagerUtils);
+		const utils = moduleRef.get<ManagerUtils>(LAVALINK_UTILS);
 		expect(utils).toBeNull();
 	});
 
@@ -53,11 +54,11 @@ describe('LavalinkUtilsProvider', () => {
 		moduleRef = await Test.createTestingModule({
 			providers: [
 				LavalinkUtilsProvider,
-				{ provide: LavalinkManager, useValue: mockLavalinkManager }
+				{ provide: LAVALINK_MANAGER, useValue: mockLavalinkManager }
 			]
 		}).compile();
 
-		const utils = moduleRef.get<ManagerUtils>(ManagerUtils);
+		const utils = moduleRef.get<ManagerUtils>(LAVALINK_UTILS);
 		expect(utils).toBeUndefined();
 	});
 });

@@ -91,6 +91,40 @@ export class AppUpdate {
 
 Whenever you need to handle any event data, use the `Context` decorator.
 
+## Injecting Lavalink instances
+
+`LavalinkManager`, `NodeManager` and `ManagerUtils` are provided under dedicated injection tokens, exposed
+through the `@InjectLavalinkManager()`, `@InjectNodeManager()` and `@InjectManagerUtils()` decorators:
+
+```typescript
+import { Injectable } from '@nestjs/common';
+import { LavalinkManager, ManagerUtils, NodeManager } from 'lavalink-client';
+import { InjectLavalinkManager, InjectManagerUtils, InjectNodeManager } from '@necord/lavalink';
+
+@Injectable()
+export class MusicService {
+    public constructor(
+        @InjectLavalinkManager() private readonly lavalinkManager: LavalinkManager,
+        @InjectNodeManager() private readonly nodeManager: NodeManager,
+        @InjectManagerUtils() private readonly utils: ManagerUtils
+    ) {}
+}
+```
+
+> [!IMPORTANT]
+> Injecting these instances by class type is no longer supported:
+>
+> ```typescript
+> // Does not work anymore
+> public constructor(private readonly nodeManager: NodeManager) {}
+> ```
+>
+> `lavalink-client` ships a CommonJS and an ESM build, so an application that loads it in a different
+> module format than `@necord/lavalink` ends up with two distinct `NodeManager` class objects. Nest
+> matches providers by reference, so injecting by class type would fail with
+> `UnknownDependenciesException`. The tokens are created with `Symbol.for()`, which resolves through the
+> global symbol registry by key and is therefore immune to the package being loaded more than once.
+
 If you want to fully dive into Necord, check out these resources:
 
 * [Necord Wiki](https://necord.org) - Official documentation of Necord.
