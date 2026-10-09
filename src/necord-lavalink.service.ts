@@ -9,11 +9,13 @@ import {
 import { LavalinkManager, Player } from 'lavalink-client';
 import { Injectable } from '@nestjs/common';
 
+import { InjectLavalinkManager } from './decorators/index.js';
+
 @Injectable()
 export class NecordLavalinkService {
 	public constructor(
 		private readonly client: Client,
-		private readonly lavalinkManager: LavalinkManager
+		@InjectLavalinkManager() private readonly lavalinkManager: LavalinkManager
 	) {}
 
 	public lavalinkUtils = this.lavalinkManager.utils;
