@@ -2,8 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { LavalinkManager } from 'lavalink-client';
 import { Client } from 'discord.js';
 
+import { LAVALINK_MANAGER, LAVALINK_MODULE_OPTIONS, PlayerSaverService } from '../../src/index.js';
 import { LavalinkManagerProvider } from '../../src/providers/lavalink-manager.provider.js';
-import { LAVALINK_MODULE_OPTIONS, PlayerSaverService } from '../../src/index.js';
 
 describe('LavalinkManagerProvider', () => {
 	let moduleRef: TestingModule;
@@ -54,7 +54,7 @@ describe('LavalinkManagerProvider', () => {
 			]
 		}).compile();
 
-		const lavalinkManager = moduleRef.get<LavalinkManager>(LavalinkManager);
+		const lavalinkManager = moduleRef.get<LavalinkManager>(LAVALINK_MANAGER);
 		expect(lavalinkManager).toBeInstanceOf(LavalinkManager);
 		expect(mockPlayerSaver.getSessions).not.toHaveBeenCalled();
 	});
@@ -86,7 +86,7 @@ describe('LavalinkManagerProvider', () => {
 			]
 		}).compile();
 
-		const lavalinkManager = moduleRef.get<LavalinkManager>(LavalinkManager);
+		const lavalinkManager = moduleRef.get<LavalinkManager>(LAVALINK_MANAGER);
 		expect(lavalinkManager).toBeInstanceOf(LavalinkManager);
 		expect(mockPlayerSaver.getSessions).toHaveBeenCalled();
 	});
@@ -118,7 +118,7 @@ describe('LavalinkManagerProvider', () => {
 			]
 		}).compile();
 
-		const lavalinkManager = moduleRef.get<LavalinkManager>(LavalinkManager);
+		const lavalinkManager = moduleRef.get<LavalinkManager>(LAVALINK_MANAGER);
 		expect(lavalinkManager).toBeInstanceOf(LavalinkManager);
 		expect(mockPlayerSaver.getSessions).toHaveBeenCalled();
 	});
@@ -159,7 +159,7 @@ describe('LavalinkManagerProvider', () => {
 			]
 		}).compile();
 
-		const lavalinkManager = moduleRef.get<LavalinkManager>(LavalinkManager);
+		const lavalinkManager = moduleRef.get<LavalinkManager>(LAVALINK_MANAGER);
 		expect(lavalinkManager).toBeInstanceOf(LavalinkManager);
 		expect(mockPlayerSaver.getSessions).toHaveBeenCalled();
 	});

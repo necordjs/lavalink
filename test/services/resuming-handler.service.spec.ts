@@ -1,5 +1,5 @@
-import { LavalinkManager, NodeManager, Player } from 'lavalink-client';
 import { Test, TestingModule } from '@nestjs/testing';
+import { Player } from 'lavalink-client';
 import { Client } from 'discord.js';
 
 import {
@@ -7,8 +7,8 @@ import {
 	PlayerManagerService,
 	PlayerSaverService
 } from '../../src/services/index.js';
+import { LAVALINK_MANAGER, LAVALINK_NODE_MANAGER, PlayerStore } from '../../src/constants/index.js';
 import { LAVALINK_MODULE_OPTIONS } from '../../src/necord-lavalink.module-definition.js';
-import { PlayerStore } from '../../src/constants/index.js';
 
 describe('ResumingHandlerService', () => {
 	let moduleRef: TestingModule;
@@ -65,9 +65,9 @@ describe('ResumingHandlerService', () => {
 		moduleRef = await Test.createTestingModule({
 			providers: [
 				ResumingHandlerService,
-				{ provide: NodeManager, useValue: mockNodeManager },
+				{ provide: LAVALINK_NODE_MANAGER, useValue: mockNodeManager },
 				{ provide: PlayerManagerService, useValue: mockPlayerManager },
-				{ provide: LavalinkManager, useValue: mockLavalinkManager },
+				{ provide: LAVALINK_MANAGER, useValue: mockLavalinkManager },
 				{ provide: Client, useValue: mockClient },
 				{ provide: PlayerSaverService, useValue: mockPlayerSaver },
 				{ provide: PlayerStore, useValue: mockStore },
@@ -174,9 +174,9 @@ describe('ResumingHandlerService', () => {
 			moduleRef = await Test.createTestingModule({
 				providers: [
 					ResumingHandlerService,
-					{ provide: NodeManager, useValue: mockNodeManager },
+					{ provide: LAVALINK_NODE_MANAGER, useValue: mockNodeManager },
 					{ provide: PlayerManagerService, useValue: mockPlayerManager },
-					{ provide: LavalinkManager, useValue: mockLavalinkManager },
+					{ provide: LAVALINK_MANAGER, useValue: mockLavalinkManager },
 					{ provide: Client, useValue: mockClient },
 					{ provide: PlayerSaverService, useValue: mockPlayerSaver },
 					{ provide: PlayerStore, useValue: mockStore },
@@ -417,9 +417,9 @@ describe('ResumingHandlerService', () => {
 			moduleRef = await Test.createTestingModule({
 				providers: [
 					ResumingHandlerService,
-					{ provide: NodeManager, useValue: mockNodeManager },
+					{ provide: LAVALINK_NODE_MANAGER, useValue: mockNodeManager },
 					{ provide: PlayerManagerService, useValue: mockPlayerManager },
-					{ provide: LavalinkManager, useValue: mockLavalinkManager },
+					{ provide: LAVALINK_MANAGER, useValue: mockLavalinkManager },
 					{ provide: Client, useValue: mockClient },
 					{ provide: PlayerSaverService, useValue: mockPlayerSaver },
 					{ provide: PlayerStore, useValue: mockStore },
