@@ -2,6 +2,7 @@ import { DiscoveryModule, DiscoveryService, MetadataScanner, Reflector } from '@
 import { LavalinkManager, NodeManager } from 'lavalink-client';
 import { Module, OnModuleInit } from '@nestjs/common';
 
+import { InjectLavalinkManager, InjectNodeManager } from '../decorators/index.js';
 import { LavalinkListenerMeta } from './interfaces/index.js';
 import { LavalinkListener } from './decorators/index.js';
 import { LavalinkHostType } from './enums/index.js';
@@ -18,8 +19,8 @@ export class LavalinkListenersModule implements OnModuleInit {
 		private readonly discoveryService: DiscoveryService,
 		private readonly metadataScanner: MetadataScanner,
 		private readonly reflector: Reflector,
-		private readonly lavalinkManager: LavalinkManager,
-		private readonly nodeManager: NodeManager
+		@InjectLavalinkManager() private readonly lavalinkManager: LavalinkManager,
+		@InjectNodeManager() private readonly nodeManager: NodeManager
 	) {}
 
 	public onModuleInit(): void {
