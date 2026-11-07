@@ -1,15 +1,15 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
 import { Player, PlayerJson } from 'lavalink-client';
+import { Injectable, Logger } from '@nestjs/common';
 
+import { InjectPlayerStore } from '../decorators/index.js';
 import { normalizeJsonObject } from '../utils/index.js';
 import { BaseStore } from '../helpers/base-store.js';
-import { PlayerStore } from '../constants/index.js';
 
 @Injectable()
 export class PlayerSaverService {
 	private readonly logger = new Logger(PlayerSaverService.name);
 
-	public constructor(@Inject(PlayerStore) private readonly store: BaseStore) {}
+	public constructor(@InjectPlayerStore() private readonly store: BaseStore) {}
 
 	public async savePlayerOnUpdate(
 		oldPlayer: PlayerJson | null,

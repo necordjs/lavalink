@@ -1,8 +1,9 @@
 import { DiscoveryService, MetadataScanner, Reflector } from '@nestjs/core';
-import { LavalinkManager, NodeManager } from 'lavalink-client';
 import { Test, TestingModule } from '@nestjs/testing';
 
 import {
+	LAVALINK_MANAGER,
+	LAVALINK_NODE_MANAGER,
 	LavalinkHostType,
 	LavalinkListenersModule,
 	LavalinkListenerType
@@ -61,11 +62,11 @@ describe('LavalinkListenersModule', () => {
 					useValue: reflector
 				},
 				{
-					provide: LavalinkManager,
+					provide: LAVALINK_MANAGER,
 					useValue: lavalinkManager
 				},
 				{
-					provide: NodeManager,
+					provide: LAVALINK_NODE_MANAGER,
 					useValue: nodeManager
 				}
 			]

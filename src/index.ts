@@ -1,5 +1,6 @@
 export * from './constants/index.js';
 export * from './context/index.js';
+export * from './decorators/index.js';
 export * from './helpers/index.js';
 export * from './listeners/index.js';
 export * from './necord-lavalink-options.interface.js';

@@ -2,11 +2,15 @@ import { Inject, Injectable, Logger, OnApplicationBootstrap } from '@nestjs/comm
 import { LavalinkManager, NodeManager } from 'lavalink-client';
 import { Client } from 'discord.js';
 
+import {
+	InjectLavalinkManager,
+	InjectNodeManager,
+	InjectPlayerStore
+} from '../decorators/index.js';
 import { NecordLavalinkModuleOptions } from '../necord-lavalink-options.interface.js';
 import { LAVALINK_MODULE_OPTIONS } from '../necord-lavalink.module-definition.js';
 import { PlayerManagerService } from './player-manager.service.js';
 import { PlayerSaverService } from './player-saver.service.js';
-import { PlayerStore } from '../constants/index.js';
 import { BaseStore } from '../helpers/index.js';
 
 @Injectable()
@@ -14,12 +18,12 @@ export class ResumingHandlerService implements OnApplicationBootstrap {
 	private readonly logger = new Logger(ResumingHandlerService.name);
 
 	public constructor(
-		private readonly nodeManager: NodeManager,
+		@InjectNodeManager() private readonly nodeManager: NodeManager,
 		private readonly playerManager: PlayerManagerService,
-		private readonly lavalinkManager: LavalinkManager,
+		@InjectLavalinkManager() private readonly lavalinkManager: LavalinkManager,
 		private readonly client: Client,
 		private readonly playerSaver: PlayerSaverService,
-		@Inject(PlayerStore)
+		@InjectPlayerStore()
 		private readonly store: BaseStore,
 		@Inject(LAVALINK_MODULE_OPTIONS)
 		private readonly lavalinkOptions: NecordLavalinkModuleOptions
