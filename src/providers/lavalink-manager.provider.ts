@@ -5,9 +5,10 @@ import { Client } from 'discord.js';
 import { NecordLavalinkModuleOptions } from '../necord-lavalink-options.interface.js';
 import { LAVALINK_MODULE_OPTIONS } from '../necord-lavalink.module-definition.js';
 import { PlayerSaverService } from '../services/index.js';
+import { LAVALINK_MANAGER } from '../constants/index.js';
 
 export const LavalinkManagerProvider: Provider<LavalinkManager> = {
-	provide: LavalinkManager,
+	provide: LAVALINK_MANAGER,
 	useFactory: async (
 		client: Client,
 		options: NecordLavalinkModuleOptions,
