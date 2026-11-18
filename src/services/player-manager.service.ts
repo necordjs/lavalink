@@ -1,9 +1,13 @@
 import { DestroyReasonsType, LavalinkManager, Player, PlayerOptions } from 'lavalink-client';
 import { Injectable } from '@nestjs/common';
 
+import { InjectLavalinkManager } from '../decorators/index.js';
+
 @Injectable()
 export class PlayerManagerService {
-	public constructor(private readonly lavalinkManager: LavalinkManager) {}
+	public constructor(
+		@InjectLavalinkManager() private readonly lavalinkManager: LavalinkManager
+	) {}
 
 	public get(guildId: string) {
 		return this.lavalinkManager.getPlayer(guildId);

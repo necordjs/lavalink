@@ -3,11 +3,16 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { Client } from 'discord.js';
 
 import {
+	LAVALINK_MANAGER,
+	LAVALINK_NODE_MANAGER,
+	LAVALINK_UTILS,
+	PlayerStore
+} from '../../src/constants/index.js';
+import {
 	PlayerManagerService,
 	PlayerSaverService,
 	LAVALINK_MODULE_OPTIONS
 } from '../../src/index.js';
-import { PlayerStore } from '../../src/constants/index.js';
 
 describe('Lavalink Providers', () => {
 	const mockLavalink = {
@@ -59,9 +64,9 @@ describe('Lavalink Providers', () => {
 	beforeAll(async () => {
 		moduleRef = await Test.createTestingModule({
 			providers: [
-				{ provide: ManagerUtils, useValue: mockLavalink.utils },
-				{ provide: LavalinkManager, useValue: mockLavalink.lavalinkManager },
-				{ provide: NodeManager, useValue: mockLavalink.nodeManager },
+				{ provide: LAVALINK_UTILS, useValue: mockLavalink.utils },
+				{ provide: LAVALINK_MANAGER, useValue: mockLavalink.lavalinkManager },
+				{ provide: LAVALINK_NODE_MANAGER, useValue: mockLavalink.nodeManager },
 				{ provide: PlayerManagerService, useValue: mockLavalink.playerManager },
 				{ provide: PlayerSaverService, useValue: mockLavalink.playerSaver },
 				{ provide: PlayerStore, useValue: mockPlayerStore },
@@ -76,17 +81,17 @@ describe('Lavalink Providers', () => {
 	});
 
 	it('should provide the LavalinkUtils instance from Lavalink', () => {
-		const utils = moduleRef.get<ManagerUtils>(ManagerUtils);
+		const utils = moduleRef.get<ManagerUtils>(LAVALINK_UTILS);
 		expect(utils).toBe(mockLavalink.utils);
 	});
 
 	it('should provide the LavalinkManager instance from Lavalink', () => {
-		const manager = moduleRef.get<LavalinkManager>(LavalinkManager);
+		const manager = moduleRef.get<LavalinkManager>(LAVALINK_MANAGER);
 		expect(manager).toBe(mockLavalink.lavalinkManager);
 	});
 
 	it('should provide the LavalinkNodeManager instance from Lavalink', () => {
-		const nodeManager = moduleRef.get<NodeManager>(NodeManager);
+		const nodeManager = moduleRef.get<NodeManager>(LAVALINK_NODE_MANAGER);
 		expect(nodeManager).toBe(mockLavalink.nodeManager);
 	});
 

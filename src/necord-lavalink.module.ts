@@ -14,6 +14,7 @@ import {
 	LAVALINK_MODULE_OPTIONS
 } from './necord-lavalink.module-definition.js';
 import { NecordLavalinkModuleOptions } from './necord-lavalink-options.interface.js';
+import { InjectLavalinkManager, InjectNodeManager } from './decorators/index.js';
 import { NecordLavalinkService } from './necord-lavalink.service.js';
 import { LavalinkListenersModule } from './listeners/index.js';
 import * as ProvidersMap from './providers/index.js';
@@ -36,8 +37,8 @@ export class NecordLavalinkModule
 
 	public constructor(
 		private readonly client: Client,
-		private readonly lavalinkManager: LavalinkManager,
-		private readonly nodeManager: NodeManager,
+		@InjectLavalinkManager() private readonly lavalinkManager: LavalinkManager,
+		@InjectNodeManager() private readonly nodeManager: NodeManager,
 		@Inject(LAVALINK_MODULE_OPTIONS)
 		private readonly options: NecordLavalinkModuleOptions
 	) {
